@@ -1,0 +1,22 @@
+INFO:     Will watch for changes in these directories: ['/Users/ow-winkel/Projects/rico4_local/backend']
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [14975] using WatchFiles
+INFO:     Started server process [14978]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:52593 - "POST /api/v1/task HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52643 - "POST /api/v1/task HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52692 - "POST /api/v1/task HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52793 - "POST /api/v1/task HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53127 - "POST /api/v1/task HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53231 - "POST /api/v1/task HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53344 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53346 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53347 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53348 - "POST /api/v1/task HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53358 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53359 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53389 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53390 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53391 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53392 - "POST /api/v1/task HTTP/1.1" 200 OK

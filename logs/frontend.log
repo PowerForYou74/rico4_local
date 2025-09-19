@@ -1,0 +1,61 @@
+
+  You can now view your Streamlit app in your browser.
+
+  Local URL: http://localhost:8501
+  Network URL: http://192.168.178.30:8501
+
+  For better performance, install the Watchdog module:
+
+  $ xcode-select --install
+  $ pip install watchdog
+            
+/Users/ow-winkel/Projects/rico4_local/.venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+2025-09-19 02:01:37.069 Uncaught app execution
+Traceback (most recent call last):
+  File "/Users/ow-winkel/Projects/rico4_local/.venv/lib/python3.9/site-packages/streamlit/runtime/scriptrunner/exec_code.py", line 128, in exec_func_with_error_handling
+    result = func()
+  File "/Users/ow-winkel/Projects/rico4_local/.venv/lib/python3.9/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 669, in code_to_exec
+    exec(code, module.__dict__)  # noqa: S102
+  File "/Users/ow-winkel/Projects/rico4_local/frontend/streamlit_app.py", line 52, in <module>
+    resp_data: Dict[str, Any] | None = None
+TypeError: unsupported operand type(s) for |: '_GenericAlias' and 'NoneType'
+2025-09-19 02:01:39.757 Uncaught app execution
+Traceback (most recent call last):
+  File "/Users/ow-winkel/Projects/rico4_local/.venv/lib/python3.9/site-packages/streamlit/runtime/scriptrunner/exec_code.py", line 128, in exec_func_with_error_handling
+    result = func()
+  File "/Users/ow-winkel/Projects/rico4_local/.venv/lib/python3.9/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 669, in code_to_exec
+    exec(code, module.__dict__)  # noqa: S102
+  File "/Users/ow-winkel/Projects/rico4_local/frontend/streamlit_app.py", line 52, in <module>
+    resp_data: Dict[str, Any] | None = None
+TypeError: unsupported operand type(s) for |: '_GenericAlias' and 'NoneType'
+2025-09-19 02:13:12.495 Script compilation error
+Traceback (most recent call last):
+  File "/Users/ow-winkel/Projects/rico4_local/.venv/lib/python3.9/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 571, in _run_script
+    code = self._script_cache.get_bytecode(script_path)
+  File "/Users/ow-winkel/Projects/rico4_local/.venv/lib/python3.9/site-packages/streamlit/runtime/scriptrunner/script_cache.py", line 72, in get_bytecode
+    filebody = magic.add_magic(filebody, script_path)
+  File "/Users/ow-winkel/Projects/rico4_local/.venv/lib/python3.9/site-packages/streamlit/runtime/scriptrunner/magic.py", line 45, in add_magic
+    tree = ast.parse(code, script_path, "exec")
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/ast.py", line 50, in parse
+    return compile(source, filename, mode, flags,
+  File "/Users/ow-winkel/Projects/rico4_local/frontend/streamlit_app.py", line 172
+    )
+    ^
+SyntaxError: f-string expression part cannot include a backslash
+2025-09-19 02:13:12.502 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2025-09-19 02:13:17.722 Script compilation error
+Traceback (most recent call last):
+  File "/Users/ow-winkel/Projects/rico4_local/.venv/lib/python3.9/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 571, in _run_script
+    code = self._script_cache.get_bytecode(script_path)
+  File "/Users/ow-winkel/Projects/rico4_local/.venv/lib/python3.9/site-packages/streamlit/runtime/scriptrunner/script_cache.py", line 72, in get_bytecode
+    filebody = magic.add_magic(filebody, script_path)
+  File "/Users/ow-winkel/Projects/rico4_local/.venv/lib/python3.9/site-packages/streamlit/runtime/scriptrunner/magic.py", line 45, in add_magic
+    tree = ast.parse(code, script_path, "exec")
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/ast.py", line 50, in parse
+    return compile(source, filename, mode, flags,
+  File "/Users/ow-winkel/Projects/rico4_local/frontend/streamlit_app.py", line 172
+    )
+    ^
+SyntaxError: f-string expression part cannot include a backslash
+2025-09-19 02:13:17.723 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
