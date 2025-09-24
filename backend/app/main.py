@@ -1,108 +1,100 @@
-# backend/app/main.py
+"""
+Rico Backend FastAPI Application
+"""
 from fastapi import FastAPI
-from starlette.middleware.cors import CORSMiddleware
-from .api.v1_rico import router as rico_router
-from .routers.autopilot import router as autopilot_router
-from .routers.monitor import router as monitor_router
-from ..api.v2.autopilot import router as v2_autopilot_router
-try:
-    from ..v2.core.api import router as v2_core_router
-except ImportError:
-    # Fallback für externe Ausführung
-    import sys
-    import os
-    sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
-    from backend.v2.core.api import router as v2_core_router
-from .config import OPENAI_API_KEY, CLAUDE_API_KEY, PPLX_API_KEY, ENV_SOURCE
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
+import logging
+import os
+from datetime import datetime
 
+# Configure JSON logging
+import json
+import sys
+from datetime import datetime
+
+class JSONFormatter(logging.Formatter):
+    def format(self, record):
+        log_entry = {
+            'timestamp': datetime.utcnow().isoformat(),
+            'level': record.levelname,
+            'logger': record.name,
+            'message': record.getMessage(),
+            'module': record.module,
+            'function': record.funcName,
+            'line': record.lineno
+        }
+        if record.exc_info:
+            log_entry['exception'] = self.formatException(record.exc_info)
+        return json.dumps(log_entry)
+
+# Configure logging
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+
+# Remove default handlers
+for handler in logger.handlers[:]:
+    logger.removeHandler(handler)
+
+# Add JSON formatter to stdout
+handler = logging.StreamHandler(sys.stdout)
+handler.setFormatter(JSONFormatter())
+logger.addHandler(handler)
+
+# Create FastAPI app
 app = FastAPI(
-    title="Rico 4.0 Orchestrator",
-    docs_url="/api/v1/docs",        # Swagger
-    redoc_url="/api/v1/redoc"       # Redoc (optional)
+    title="Rico Orchestrator System",
+    description="Backend API for Rico Orchestrator",
+    version="2.0.0",
+    debug=os.getenv("DEBUG", "false").lower() == "true"
 )
 
-# CORS für Streamlit + Next.js
+# Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:8501", "http://localhost:3000"],
+    allow_origins=["*"],  # In production, specify actual origins
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
 @app.get("/")
-def root():
-    return {"status": "ok", "agent": "Rico 4.0"}
+async def root():
+    """Root endpoint"""
+    logger.info("Root endpoint accessed")
+    return {
+        "message": "Rico Orchestrator System",
+        "version": "2.0.0",
+        "status": "running",
+        "timestamp": datetime.utcnow().isoformat()
+    }
 
-@app.get("/check-keys")
-def check_keys():
-    """Health-Check 2.0: Mini-Pings für alle Provider"""
-    from .services.health_check import health_check_2
-    
-    # Verwende Health-Check 2.0 für einheitliches Schema
-    import asyncio
-    
-    try:
-        # Async Health-Check ausführen
-        result = asyncio.run(health_check_2.check_all_providers())
-        
-        # Schema für Frontend-Kompatibilität
-        providers = result.get("providers", {})
-        
-        return {
-            "openai": providers.get("openai", {}).get("status", "unknown"),
-            "claude": providers.get("claude", {}).get("status", "unknown"),
-            "perplexity": providers.get("perplexity", {}).get("status", "unknown"),
-            "env_source": ENV_SOURCE,
-            "models": {
-                "openai": providers.get("openai", {}).get("model", ""),
-                "claude": providers.get("claude", {}).get("model", ""),
-                "perplexity": providers.get("perplexity", {}).get("model", ""),
-            },
-            "latency": {
-                "openai": providers.get("openai", {}).get("latency_ms", 0),
-                "claude": providers.get("claude", {}).get("latency_ms", 0),
-                "perplexity": providers.get("perplexity", {}).get("latency_ms", 0),
-            }
-        }
-    except Exception as e:
-        # Fallback bei Fehlern
-        return {
-            "openai": "error",
-            "claude": "error", 
-            "perplexity": "error",
-            "env_source": ENV_SOURCE,
-            "models": {
-                "openai": "",
-                "claude": "",
-                "perplexity": "",
-            },
-            "error": str(e)
-        }
+@app.get("/health")
+async def health():
+    """Health check endpoint"""
+    logger.info("Health check requested")
+    return {
+        "status": "ok",
+        "service": "backend",
+        "timestamp": datetime.utcnow().isoformat()
+    }
 
-# Router einbinden
-app.include_router(rico_router, prefix="/api/v1")
-app.include_router(autopilot_router)
-app.include_router(monitor_router)
-app.include_router(v2_core_router)
-app.include_router(v2_autopilot_router)
+@app.get("/info")
+async def info():
+    """System information"""
+    logger.info("Info endpoint accessed")
+    return {
+        "app_name": "Rico Orchestrator System",
+        "version": "2.0.0",
+        "debug": os.getenv("DEBUG", "false").lower() == "true",
+        "timestamp": datetime.utcnow().isoformat()
+    }
 
-# v2 Router
-try:
-    from ..v2.practice.api import router as v2_practice_router
-    from ..v2.finance.api import router as v2_finance_router
-    from ..v2.cashbot.api import router as v2_cashbot_router
-    app.include_router(v2_practice_router)
-    app.include_router(v2_finance_router)
-    app.include_router(v2_cashbot_router)
-except ImportError:
-    # Fallback für externe Ausführung
-    import sys
-    import os
-    sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
-    from backend.v2.practice.api import router as v2_practice_router
-    from backend.v2.finance.api import router as v2_finance_router
-    from backend.v2.cashbot.api import router as v2_cashbot_router
-    app.include_router(v2_practice_router)
-    app.include_router(v2_finance_router)
-    app.include_router(v2_cashbot_router)
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(
+        "app.main:app",
+        host="0.0.0.0",
+        port=8000,
+        reload=os.getenv("DEBUG", "false").lower() == "true"
+    )

@@ -1,57 +1,255 @@
-# Rico Orchestrator System
+# Rico V5 System - Vollständiges CI/CD & Deploy-System
 
-Ein fortschrittliches AI Provider Orchestration System mit Auto-Race Logic, entwickelt mit FastAPI (Python) und Next.js 14 (TypeScript).
+Ein produktionsreifes AI Provider Orchestration System mit FastAPI (Backend), Next.js 14 (Frontend) und n8n (Workflows), vollständig containerisiert und mit automatischem Deployment.
 
 ## 🚀 Features
 
-- **Provider-Parität**: OpenAI, Anthropic, Perplexity mit einheitlichem Response-Schema
-- **Auto-Race Logic**: Async `asyncio.wait(FIRST_COMPLETED)` mit deterministischem Tie-Breaker
-- **Health-Check 2.0**: Schema `{status, latency_ms, model, env_source}`
-- **v2 Endpoints**: Core, Practice, Finance, Cashbot
-- **Secret-Redaction**: Logging/Exception-Handler mit Key/Token-Masking
-- **Next.js Frontend**: App Router + Zustand + shadcn/ui Components
-- **Mock-Tests**: Vollständig, keine Real-HTTP Calls
-- **n8n Integration**: Webhook-Client mit ENV-based Config
-- **CI-Security**: HTTP-Blocking in Tests
+- **Vollständig containerisiert**: Docker Compose mit Health-Checks
+- **Reverse Proxy**: Nginx mit Routing und Security-Headers
+- **CI/CD Pipeline**: GitHub Actions mit automatischem Deploy
+- **Health-Monitoring**: JSON-Logging und Service-Health-Checks
+- **Provider-Parität**: OpenAI, Anthropic, Perplexity
+- **n8n Integration**: Workflow-Automatisierung
+- **Production-Ready**: Idempotente Deploy-Skripte
 
-## 📋 Voraussetzungen
+## 🏗️ Architektur
 
-- Python 3.11+
-- Node.js 18+
-- npm oder yarn
+```
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│   Nginx:80      │    │   Frontend:3000 │    │   Backend:8000  │
+│   (Reverse     │    │   (Next.js 14)   │    │   (FastAPI)     │
+│    Proxy)       │    │                 │    │                 │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+         │                       │                       │
+         └───────────────────────┼───────────────────────┘
+                                 │
+                    ┌─────────────────┐
+                    │   n8n:5678      │
+                    │   (Workflows)   │
+                    └─────────────────┘
+```
 
-## 🛠️ Installation
+## 🚀 Quick Start
 
-### Backend Setup
+### Lokale Entwicklung
 
 ```bash
-# Backend Dependencies installieren
-cd backend
-pip install -r requirements.txt
-
-# Environment konfigurieren
+# 1. Environment konfigurieren
 cp env.template .env.local
 # Bearbeite .env.local mit deinen API-Keys
-```
 
-### Frontend Setup
-
-```bash
-# Frontend Dependencies installieren
-cd frontend
-npm install
-
-# Environment konfigurieren
-echo "NEXT_PUBLIC_API_URL=http://localhost:8000" > .env.local
-```
-
-## 🚀 Starten
-
-### Lokale Entwicklung mit Docker
-
-```bash
-# Alle Services starten
+# 2. Alle Services starten
 docker compose up -d
+
+# 3. Services testen
+curl http://localhost:8000/health    # Backend
+curl http://localhost:3000/api/health  # Frontend
+curl http://localhost/health         # Nginx
+```
+
+### Server-Deploy
+
+```bash
+# 1. Server vorbereiten
+ssh user@server "bash <(curl -s https://raw.githubusercontent.com/your-repo/main/deploy/server_bootstrap.sh)"
+
+# 2. Code synchronisieren
+rsync -avz --delete -e "ssh" ./ user@server:/opt/rico4/
+
+# 3. Deploy ausführen
+ssh user@server "cd /opt/rico4 && bash deploy/deploy.sh"
+```
+
+## 🔧 Konfiguration
+
+### Environment-Variablen
+
+Kopiere `env.template` zu `.env.local` und setze deine Werte:
+
+```bash
+# API Keys (erforderlich)
+OPENAI_API_KEY=sk-your-openai-key
+ANTHROPIC_API_KEY=sk-ant-your-anthropic-key
+PPLX_API_KEY=pplx-your-perplexity-key
+
+# Service-Konfiguration
+N8N_ENABLED=true
+DEBUG=false
+```
+
+### GitHub Actions Secrets
+
+Konfiguriere diese Secrets in deinem GitHub Repository:
+
+- `SSH_HOST`: Server-IP-Adresse
+- `SSH_USER`: SSH-Benutzername
+- `SSH_KEY`: SSH-Private-Key
+- `SSH_PORT`: SSH-Port (optional, Standard: 22)
+
+## 🌐 Service-URLs
+
+- **Hauptzugang**: http://localhost (Nginx)
+- **Backend**: http://localhost:8000
+- **Frontend**: http://localhost:3000
+- **n8n**: http://localhost:5678
+
+## 🔍 Health-Checks
+
+```bash
+# Backend
+curl http://localhost:8000/health
+# → {"status":"ok","service":"backend"}
+
+# Frontend
+curl http://localhost:3000/api/health
+# → {"status":"ok","service":"frontend"}
+
+# Nginx
+curl http://localhost/health
+# → "healthy"
+```
+
+## 🚀 Deploy-Ablauf
+
+### Automatisch (GitHub Actions)
+
+1. Push auf `main` Branch
+2. GitHub Actions führt Build und Deploy aus
+3. Health-Checks werden automatisch durchgeführt
+
+### Manuell
+
+```bash
+# 1. Code pushen
+git push origin main
+
+# 2. Auf Server deployen
+ssh user@server "cd /opt/rico4 && git pull && bash deploy/deploy.sh"
+```
+
+## 📊 Monitoring
+
+### Container-Status
+
+```bash
+docker compose ps
+```
+
+### Logs anzeigen
+
+```bash
+# Alle Services
+docker compose logs
+
+# Einzelne Services
+docker compose logs backend
+docker compose logs frontend
+docker compose logs n8n
+docker compose logs nginx
+```
+
+### Health-Checks
+
+```bash
+# Alle Services prüfen
+curl -f http://localhost:8000/health && \
+curl -f http://localhost:3000/api/health && \
+curl -f http://localhost/health && \
+echo "✅ Alle Services sind gesund"
+```
+
+## 🛠️ Troubleshooting
+
+### Container startet nicht
+
+```bash
+# Logs prüfen
+docker compose logs [service-name]
+
+# Container neu starten
+docker compose restart [service-name]
+
+# Alle Container neu starten
+docker compose down && docker compose up -d
+```
+
+### Health-Check fehlgeschlagen
+
+```bash
+# Service-spezifische Logs
+docker compose logs [service-name]
+
+# Container-Status prüfen
+docker compose ps
+
+# Health-Check manuell testen
+curl -v http://localhost:[port]/health
+```
+
+### n8n Probleme
+
+```bash
+# n8n Daten zurücksetzen
+docker compose down
+rm -rf n8n_data/
+docker compose up -d n8n
+```
+
+## 📁 Projektstruktur
+
+```
+rico4_local/
+├── backend/                 # FastAPI Backend
+│   ├── app/
+│   │   └── main.py         # Hauptanwendung
+│   ├── Dockerfile
+│   └── requirements.txt
+├── frontend/               # Next.js Frontend
+│   ├── src/
+│   │   ├── app/
+│   │   │   └── api/health/ # Health-Route
+│   │   └── components/
+│   ├── Dockerfile
+│   └── package.json
+├── deploy/                  # Deploy-Skripte
+│   ├── server_bootstrap.sh
+│   ├── deploy.sh
+│   └── nginx/
+│       └── nginx.conf
+├── .github/workflows/       # CI/CD
+│   └── deploy.yml
+├── docker-compose.yml       # Container-Orchestrierung
+├── env.template             # Environment-Template
+└── README.md               # Diese Datei
+```
+
+## 🔒 Sicherheit
+
+- **Keine Secrets im Repository**
+- **SSH-Key-basierte Authentifizierung**
+- **Security-Headers in Nginx**
+- **Rate Limiting aktiviert**
+- **Container als Non-Root-User**
+
+## 📈 Performance
+
+- **Multi-Stage Docker Builds**
+- **Gzip-Kompression**
+- **Health-Check-basierte Dependencies**
+- **JSON-Structured Logging**
+- **Container-Health-Monitoring**
+
+## 🤝 Beitragen
+
+1. Fork das Repository
+2. Erstelle einen Feature-Branch
+3. Committe deine Änderungen
+4. Push zum Branch
+5. Erstelle einen Pull Request
+
+## 📄 Lizenz
+
+MIT License - siehe LICENSE-Datei für Details.
 
 # Mit n8n (optional)
 docker compose --profile n8n up -d
