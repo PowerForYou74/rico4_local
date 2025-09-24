@@ -1,0 +1,29 @@
+{
+  "timestamp": "2025-09-22T08:19:24.914286",
+  "counts": {
+    "ok": 2,
+    "failed": 0,
+    "stale": 0
+  },
+  "details": {
+    "test_task": {
+      "ok": true,
+      "error": null,
+      "ts": "2025-09-22T08:18:02.715576",
+      "stale": false,
+      "file": "test_task_20250922_081802.json"
+    },
+    "log_watcher": {
+      "ok": true,
+      "error": null,
+      "ts": "2025-09-22T08:15:03.836416",
+      "stale": false,
+      "file": "log_watcher_20250922_081503.json"
+    }
+  },
+  "total_tasks": 2,
+  "monitored_tasks": [
+    "test_task",
+    "log_watcher"
+  ]
+}

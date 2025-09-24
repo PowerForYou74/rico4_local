@@ -1,0 +1,42 @@
+{
+  "success": true,
+  "task_id": "social_reels",
+  "task_type": "analysis",
+  "provider": "openai",
+  "timestamp": "2025-09-22T10:00:06.199799",
+  "result": {
+    "kurz_zusammenfassung": "Kreative Reel-Idee zur Förderung der Tiergesundheit durch Milieutherapie.",
+    "kernbefunde": [
+      "Hook: 'Wusstest du, dass die Gesundheit deines Tieres in der Natur beginnt?'",
+      "Kernbotschaft: 'Milieutherapie kann das Wohlbefinden deines Haustiers nachhaltig verbessern!'"
+    ],
+    "action_plan": [
+      "Erstelle ein kurzes Video mit Szenen von glücklichen, gesunden Tieren in der Natur.",
+      "Integriere Tipps zur Milieutherapie für Haustiere.",
+      "Füge ansprechende Musik und Textüberlagerungen hinzu."
+    ],
+    "risiken": [
+      "Falsche Informationen zur Milieutherapie könnten verbreitet werden.",
+      "Mangelndes Interesse an Tiergesundheitsthemen."
+    ],
+    "cashflow_radar": {
+      "idee": "Monetarisierung durch Partnerschaften mit Tiergesundheitsmarken."
+    },
+    "team_rolle": {
+      "openai": true,
+      "claude": false
+    },
+    "aufgabenverteilung": [
+      "Inhaltserstellung: OpenAI",
+      "Videobearbeitung: Teammitglied A",
+      "Social Media Management: Teammitglied B"
+    ],
+    "orchestrator_log": "OpenAI gpt-4o-mini | 6.18s | ✓ JSON geparst",
+    "meta": {
+      "provider": "openai",
+      "duration_s": 6.18
+    },
+    "raw_text": ""
+  },
+  "error": null
+}

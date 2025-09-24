@@ -1,0 +1,12 @@
+{
+  "success": false,
+  "task_id": "log_watcher",
+  "task_type": "analysis",
+  "provider": "openai",
+  "timestamp": "2025-09-22T07:45:01.128316",
+  "result": {
+    "error": "openai: Server error '503 Service Unavailable' for url 'https://api.openai.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/503",
+    "orchestrator_log": "OpenAI gpt-4o-mini | 1.13s | ✗ Fehler: Server error '503 Service Unavailable' for url 'https://api.openai.com/v1/chat/completions'\nFor more"
+  },
+  "error": "openai: Server error '503 Service Unavailable' for url 'https://api.openai.com/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/503"
+}

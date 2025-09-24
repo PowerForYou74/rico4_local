@@ -1,0 +1,10 @@
+{
+  "ts": "2025-09-22T09:35:00.020733Z",
+  "ok": true,
+  "status": "success",
+  "duration_sec": 0.019262,
+  "provider": "system",
+  "prompt_type": "analysis",
+  "notes": "Task-Monitoring abgeschlossen: 1 OK, 1 Fehler, 7 Stale",
+  "error": null
+}

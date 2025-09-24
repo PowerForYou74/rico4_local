@@ -1,0 +1,12 @@
+{
+  "success": false,
+  "task_id": "weekly_analysis",
+  "task_type": "analysis",
+  "provider": "claude",
+  "timestamp": "2025-09-22T09:00:03.860678",
+  "result": {
+    "error": "claude: Server error '529 ' for url 'https://api.anthropic.com/v1/messages'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/529",
+    "orchestrator_log": "Claude claude-3-7-sonnet-20250219 | 3.84s | ✗ Fehler: Server error '529 ' for url 'https://api.anthropic.com/v1/messages'\nFor more information check: http"
+  },
+  "error": "claude: Server error '529 ' for url 'https://api.anthropic.com/v1/messages'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/529"
+}

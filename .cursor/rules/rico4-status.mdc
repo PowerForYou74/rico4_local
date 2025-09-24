@@ -1,0 +1,46 @@
+---
+name: Rico4-Status
+description: "Quick-Healthcheck: Regeln, Master-Prompt, .env & Orchestrator"
+alwaysApply: false
+globs: []
+rules: |
+  Aktivierung:
+    - Greift nur bei folgenden Keywords:
+      ["#use:status", "/status", "status check", "show rico status"]
+
+  Verhalten:
+    - Lies ausschließlich lokale Dateien im Projekt:
+      • .cursor/rules/*.mdc
+      • .env
+      • backend/app/services/orchestrator.py
+      • rico4-master-full.mdc
+    - Keine Internet-/API-Requests ausführen!
+
+    Schritte:
+    1) Regeln prüfen
+       - Liste alle Dateien in `.cursor/rules/`.
+       - Zeige pro Datei: name, alwaysApply (falls vorhanden).
+    2) Master-Prompt prüfen
+       - In `rico4-master-full.mdc` nachsehen, ob zwischen
+         <<< BEGIN RICO4_MASTER_V4_FULL >>> und
+         <<< END RICO4_MASTER_V4_FULL >>> Inhalt steht.
+       - Ergebnis: "vollständig" oder "leer".
+    3) .env prüfen
+       - Zeige: OPENAI_MODEL, CLAUDE_MODEL, PPLX_MODEL,
+         LLM_TIMEOUT_SECONDS, LLM_RETRIES.
+       - Für API-Keys nur: gesetzt/ungesetzt (✅/❌).
+    4) Orchestrator prüfen
+       - Öffne `orchestrator.py` und zeige:
+         Provider, Endpoints, Timeout/Retry.
+    5) Ausgabeformat
+       RICO 4.0 – Systemstatus
+       ------------------------
+       • Regeln: …
+       • Master-Prompt: …
+       • .env: …
+       • Orchestrator: …
+       • Hinweise: …
+
+    - Ton: Klar, kompakt, deutsch. Keine Keys im Klartext!
+    - Maximal 20 Zeilen ausgeben.
+---

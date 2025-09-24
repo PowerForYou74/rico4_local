@@ -1,0 +1,39 @@
+{
+  "kurz_zusammenfassung": "Keine spezifischen Ereignisse oder Aktivitäten wurden beschrieben.",
+  "kernbefunde": [
+    "Keine konkreten Informationen über heutige Ereignisse vorhanden",
+    "Keine spezifischen To-Dos für morgen genannt",
+    "Keine Erkenntnisse aus dem heutigen Tag mitgeteilt"
+  ],
+  "action_plan": [
+    "Tagesereignisse dokumentieren",
+    "Prioritäten für den nächsten Tag festlegen",
+    "Erkenntnisse und Learnings reflektieren"
+  ],
+  "risiken": [
+    "Fehlende Dokumentation kann zu Informationsverlust führen",
+    "Ohne klare To-Dos für morgen fehlt Struktur und Priorisierung",
+    "Ohne Reflexion gehen potenzielle Lerneffekte verloren"
+  ],
+  "cashflow_radar": {
+    "idee": "Tägliche Dokumentation von Aktivitäten und Erkenntnissen kann langfristig Zeit und Ressourcen sparen"
+  },
+  "team_rolle": {
+    "openai": false,
+    "claude": true,
+    "perplexity": false
+  },
+  "aufgabenverteilung": [
+    "Tagesreflexion einführen",
+    "To-Do-System implementieren",
+    "Erkenntnismanagement etablieren"
+  ],
+  "orchestrator_log": "Claude claude-3-7-sonnet-20250219 | 6.84s | ✓ JSON geparst",
+  "meta": {
+    "provider": "claude",
+    "duration_s": 6.842,
+    "provider_model": "claude-3-7-sonnet-20250219",
+    "used_provider": "claude"
+  },
+  "raw_text": ""
+}

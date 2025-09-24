@@ -1,0 +1,10 @@
+{
+  "ts": "2025-09-23T07:30:05.897525Z",
+  "ok": true,
+  "status": "success",
+  "duration_sec": 5.87777,
+  "provider": "openai",
+  "prompt_type": "post",
+  "notes": "Motivationspost zur Tiergesundheit.",
+  "error": null
+}

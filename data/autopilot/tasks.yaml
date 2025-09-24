@@ -1,0 +1,135 @@
+# Rico 4.0 - Autopilot Tasks
+# Zentrale Task-Verwaltung für automatische Job-Ausführung
+
+tasks:
+  - id: daily_checkin
+    description: "Täglicher Abend-Checkin um 20:00 Uhr"
+    schedule: "0 20 * * *"
+    enabled: true
+    provider: openai
+    task_type: analysis
+    prompt: |
+      Erstelle eine kurze Übersicht mit:
+      1) Was ist heute passiert?
+      2) Wichtigste To-Dos für morgen?
+
+  - id: social_post
+    description: "Täglicher Social-Media-Post"
+    schedule: "30 9 * * *"
+    enabled: true
+    provider: openai
+    task_type: post
+    prompt: |
+      Erstelle einen Social-Media-Beitrag im Stil von Oliver Winkel.
+      Fokus: Tiergesundheit, CellRepair, Praxisalltag.
+      Baue Hashtags organisch ein.
+
+  - id: weekly_analysis
+    description: "Wöchentliche Systemanalyse"
+    schedule: "0 9 * * MON"
+    enabled: true
+    provider: claude
+    task_type: analysis
+    prompt: |
+      Analysiere die vergangene Woche:
+      - Welche Fortschritte wurden erzielt?
+      - Welche Blockaden gibt es?
+      - Welche nächsten Schritte sind wichtig?
+
+  - id: test_task
+    description: "Autopilot-Test alle 2 Minuten"
+    schedule: "*/2 * * * *"
+    enabled: true
+    provider: openai
+    task_type: analysis
+    prompt: "Sag nur: ✅ Test-Task erfolgreich ausgeführt."
+
+  - id: log_watcher
+    description: "Überwachung der orchestrator.log auf Task-Ausführungen"
+    schedule: "*/5 * * * *"
+    enabled: true
+    provider: openai
+    task_type: analysis
+    prompt: |
+      Öffne die Datei logs/orchestrator.log und filtere die letzten 20 Zeilen.
+      Prüfe, ob die folgenden Tasks erfolgreich ausgeführt wurden:
+        - test_task
+        - daily_checkin
+        - social_post
+        - weekly_analysis
+      Gib eine kurze Statusübersicht zurück:
+        ✅ wenn der Task in den letzten 10 Minuten erfolgreich lief
+        ⚠️ wenn kein Eintrag gefunden wurde
+        ❌ wenn ein Fehler auftauchte
+      Ergänze eine kurze Zusammenfassung (max. 3 Sätze).
+
+  - id: system_cleanup
+    description: "Tägliche System-Bereinigung um 3:00 Uhr"
+    schedule: "0 3 * * *"
+    enabled: true
+    provider: openai
+    task_type: maintenance
+    prompt: |
+      Führe eine System-Bereinigung durch:
+      1) Lösche alte Log-Dateien (älter als 7 Tage)
+      2) Bereinige alte Task-Results (älter als 30 Tage)
+      3) Prüfe Festplattenspeicher
+      4) Gib eine Zusammenfassung der Bereinigung zurück
+
+  - id: daily_briefing
+    description: "Tägliches 8:00 Uhr Business-Briefing für Oliver"
+    schedule: "0 8 * * *"
+    enabled: true
+    provider: openai
+    task_type: analysis
+    prompt: "Erstelle ein kurzes Business-Briefing (max. 150 Worte) mit Fokus auf Markttrends, KI-News und Praxisorganisation."
+
+  - id: evening_check
+    description: "Täglicher Abend-Check um 21:00 Uhr"
+    schedule: "0 21 * * *"
+    enabled: true
+    provider: openai
+    task_type: analysis
+    prompt: "Frage Oliver: 'Was ist heute passiert?' und 'Was sind die wichtigsten To-dos für morgen?'. Fasse seine Antworten kurz und strukturiert zusammen."
+
+  - id: social_reels
+    description: "Social-Media Reel-Idee generieren um 10:00 Uhr"
+    schedule: "0 10 * * *"
+    enabled: true
+    provider: openai
+    task_type: analysis
+    prompt: "Erstelle eine kreative Reel-Idee für TikTok/Facebook über Tiergesundheit, CellRepair oder Milieutherapie. Kurzer Hook, Kernbotschaft, Hashtags."
+
+  - id: finance_focus
+    description: "Wöchentliche Finanzübersicht sonntags 19:00 Uhr"
+    schedule: "0 19 * * SUN"
+    enabled: true
+    provider: openai
+    task_type: analysis
+    prompt: "Analysiere Olivers Einnahmen/Ausgaben (aus Logdaten oder manuelle Eingaben). Gib einen Überblick über Cashflow, Sparziel und Risiken."
+
+  - id: praxis_tip
+    description: "Wöchentlicher Praxistipp montags 9:30 Uhr"
+    schedule: "30 9 * * MON"
+    enabled: true
+    provider: openai
+    task_type: analysis
+    prompt: "Erstelle einen kurzen fachlichen Praxistipp für Pferde- oder Hundetherapie. Fokus: Hochfrequenz-Induktion, Photobiomodulation oder Milieutherapie."
+
+# Task-Schema Dokumentation:
+# 
+# Jeder Task benötigt folgende Felder:
+# - id: Eindeutige Identifikation (String)
+# - description: Beschreibung des Tasks (String)
+# - schedule: Cron-Expression für Zeitplanung (String)
+# - enabled: Aktivierungsstatus (Boolean)
+# - provider: LLM-Provider ("auto", "openai", "claude", etc.)
+# - task_type: Art des Tasks ("analysis", "post", "notification", etc.)
+# - prompt: Prompt für den LLM (String, mehrzeilig)
+#
+# Weitere Task-Typen können hinzugefügt werden:
+# - "reminder": Erinnerungen
+# - "report": Berichte generieren
+# - "data_analysis": Datenanalyse
+# - "content_creation": Content-Erstellung
+# - "monitoring": System-Monitoring

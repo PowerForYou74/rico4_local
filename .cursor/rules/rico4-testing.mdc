@@ -1,0 +1,26 @@
+---
+name: Rico4-Testing
+description: "Pytest & Self-Check der aktiven Regeln"
+alwaysApply: false
+globs: []
+rules: |
+  Aktivierung:
+  - Greift nur, wenn Nutzer eines der Keywords eingibt:
+    ["#use:testing", "[mode:testing]", "activate testing", "Test Rico4 Regeln"]
+
+  Verhalten:
+  1. Wenn Eingabe "Pytest" oder "activate testing":
+     - Erzeuge/aktualisiere `tests/` mit Pytest.
+     - Unit-Tests: Arrange/Act/Assert, keine Magic Sleeps.
+     - Integration-Tests: HTTP/LLM mocken; Timeouts/Fehlerfälle abdecken.
+     - Vollständige Testdateien liefern.
+
+  2. Wenn Eingabe "Test Rico4 Regeln":
+     - Liste ALLE geladenen .mdc-Dateien auf (Name + Status).
+     - Prüfe, ob `rico4-master-full.mdc` aktiv ist.
+     - Prüfe, ob Extra-Prompts wie `rico4-cursor-extra.mdc` berücksichtigt sind.
+     - Ausgabe:
+       - ✅ bei aktiv
+       - ❌ wenn fehlt
+     - Am Ende eine Zusammenfassung: "System OK" oder "Es fehlen Regeln".
+---

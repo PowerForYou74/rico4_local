@@ -1,0 +1,16 @@
+---
+name: Rico4-Frontend
+description: "Streamlit UX-Konventionen für Rico4 Dashboard"
+globs: ["frontend/**"]
+alwaysApply: true
+rules: |
+  UX:
+  - Provider-Select: ["auto","openai","claude","perplexity","perplexity:small","perplexity:medium","perplexity:large"].
+  - Zeige Status aus /check-keys (openai/claude/perplexity).
+  - Expander nie leer lassen: Placeholder "– leer –".
+  - Ergebnisblöcke priorisieren, Roh-JSON in Tabs.
+
+  Stabilität:
+  - Keys defensiv rendern (Fallbacks), keine KeyErrors.
+  - API_BASE und Endpunkte zentral deklarieren.
+---

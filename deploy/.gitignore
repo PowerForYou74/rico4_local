@@ -1,0 +1,21 @@
+# Deploy-specific ignores
+*.log
+*.pid
+*.tmp
+
+# Server-specific files
+.env.local
+.env.production
+.env.staging
+
+# Nginx logs
+nginx/access.log
+nginx/error.log
+
+# Docker volumes
+../n8n/n8n_data/
+../data/
+
+# Backup files
+*.backup
+*.bak

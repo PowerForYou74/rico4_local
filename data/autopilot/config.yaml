@@ -1,0 +1,89 @@
+# Rico 4.0 - Autopilot Konfiguration
+# Vollautomatische Job-Ausführung basierend auf Cron-Schedules
+
+tasks:
+  - id: "daily_checkin"
+    description: "Täglicher Abend-Checkin 20:00 Uhr"
+    schedule: "0 20 * * *"
+    enabled: true
+    provider: "auto"
+    task_type: "analysis"
+    prompt: |
+      Was ist heute passiert? 
+      Was sind die wichtigsten To-Dos für morgen?
+      Welche Erkenntnisse hast du aus dem heutigen Tag gezogen?
+
+  - id: "social_post"
+    description: "Täglicher Social-Media-Post"
+    schedule: "30 9 * * *"
+    enabled: true
+    provider: "openai"
+    task_type: "post"
+    prompt: |
+      Schreibe einen motivierenden Social-Media-Post über Tiergesundheit.
+      Der Post soll professionell, aber zugänglich sein.
+      Verwende Hashtags und halte ihn unter 280 Zeichen.
+
+  - id: "weekly_analysis"
+    description: "Wöchentliche Geschäftsanalyse"
+    schedule: "0 18 * * 1"
+    enabled: false
+    provider: "claude"
+    task_type: "analysis"
+    prompt: |
+      Analysiere die vergangene Woche:
+      - Was lief gut?
+      - Wo gibt es Verbesserungspotenzial?
+      - Welche Prioritäten für die kommende Woche?
+
+  - id: "morning_briefing"
+    description: "Tägliches Morgen-Briefing 8:00 Uhr"
+    schedule: "0 8 * * 1-5"
+    enabled: false
+    provider: "auto"
+    task_type: "analysis"
+    prompt: |
+      Erstelle ein kurzes Morgen-Briefing:
+      - Heutige Prioritäten
+      - Wichtige Termine
+      - Motivation für den Tag
+
+  - id: "customer_feedback_review"
+    description: "Wöchentliche Kundenfeedback-Analyse"
+    schedule: "0 16 * * 5"
+    enabled: false
+    provider: "openai"
+    task_type: "analysis"
+    prompt: |
+      Analysiere das Kundenfeedback der vergangenen Woche:
+      - Positive Rückmeldungen
+      - Verbesserungsvorschläge
+      - Handlungsempfehlungen
+
+# Globale Einstellungen
+settings:
+  max_concurrent_tasks: 3
+  result_retention_days: 30
+  enable_notifications: false
+  log_level: "INFO"
+
+# Export-Einstellungen
+exports:
+  enabled: true
+  dir: data/exports   # ENV überschreibt, sonst Default
+  formats: ["json", "csv"]           # csv nur, wenn tabellarisch möglich
+  keep_days: 30                      # (optional) Aufbewahrung in Tagen
+
+# Benachrichtigungen (optional)
+notifications:
+  email:
+    enabled: false
+    recipients: []
+    on_success: false
+    on_failure: true
+  
+  webhook:
+    enabled: false
+    url: ""
+    on_success: false
+    on_failure: true

@@ -1,0 +1,279 @@
+/* Rico System V5 - PDF Theme */
+/* Elegantes, gut lesbares Theme für Druck */
+
+/* Basis-Styling */
+.rico-doc {
+  font-family: 'Inter', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  font-size: 11pt;
+  line-height: 1.6;
+  color: #2c3e50;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Deckblatt */
+.cover-page {
+  text-align: center;
+  padding: 60pt 0;
+  page-break-after: always;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cover-content {
+  max-width: 80%;
+}
+
+.cover-title {
+  font-size: 28pt;
+  font-weight: 700;
+  color: #009688;
+  margin: 0 0 20pt 0;
+  line-height: 1.2;
+}
+
+.cover-subtitle {
+  font-size: 18pt;
+  font-weight: 400;
+  color: #7f8c8d;
+  margin: 0 0 30pt 0;
+  line-height: 1.3;
+}
+
+.cover-author {
+  font-size: 14pt;
+  color: #34495e;
+  margin: 20pt 0 10pt 0;
+}
+
+.cover-date {
+  font-size: 12pt;
+  color: #95a5a6;
+  margin: 0;
+}
+
+/* Seitenumbruch */
+.page-break {
+  page-break-before: always;
+}
+
+/* Überschriften */
+h1 {
+  font-size: 20pt;
+  font-weight: 700;
+  color: #009688;
+  margin: 30pt 0 15pt 0;
+  padding-bottom: 8pt;
+  border-bottom: 2pt solid #009688;
+  page-break-after: avoid;
+}
+
+h2 {
+  font-size: 16pt;
+  font-weight: 600;
+  color: #009688;
+  margin: 25pt 0 12pt 0;
+  page-break-after: avoid;
+}
+
+h3 {
+  font-size: 14pt;
+  font-weight: 600;
+  color: #34495e;
+  margin: 20pt 0 10pt 0;
+  page-break-after: avoid;
+}
+
+h4, h5, h6 {
+  font-size: 12pt;
+  font-weight: 600;
+  color: #34495e;
+  margin: 15pt 0 8pt 0;
+  page-break-after: avoid;
+}
+
+/* Absätze */
+p {
+  margin: 0 0 12pt 0;
+  text-align: justify;
+  orphans: 2;
+  widows: 2;
+}
+
+/* Listen */
+ul, ol {
+  margin: 12pt 0;
+  padding-left: 20pt;
+}
+
+li {
+  margin: 4pt 0;
+  line-height: 1.5;
+}
+
+/* Tabellen */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 15pt 0;
+  font-size: 10pt;
+}
+
+th, td {
+  border: 1pt solid #bdc3c7;
+  padding: 8pt 12pt;
+  text-align: left;
+}
+
+th {
+  background-color: #ecf0f1;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+/* Code */
+code {
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', monospace;
+  font-size: 9pt;
+  background-color: #f1f2f6;
+  padding: 2pt 4pt;
+  border-radius: 3pt;
+  color: #e74c3c;
+}
+
+pre {
+  background-color: #f8f9fa;
+  border: 1pt solid #e9ecef;
+  border-radius: 6pt;
+  padding: 15pt;
+  margin: 15pt 0;
+  overflow-x: auto;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', monospace;
+  font-size: 9pt;
+  line-height: 1.4;
+}
+
+pre code {
+  background: none;
+  padding: 0;
+  color: #2c3e50;
+  border-radius: 0;
+}
+
+/* Blockquotes */
+blockquote {
+  border-left: 4pt solid #009688;
+  padding-left: 15pt;
+  margin: 15pt 0;
+  color: #7f8c8d;
+  font-style: italic;
+}
+
+/* Bilder */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 15pt auto;
+  border-radius: 4pt;
+}
+
+/* Links */
+a {
+  color: #009688;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Horizontale Linien */
+hr {
+  border: none;
+  border-top: 1pt solid #bdc3c7;
+  margin: 20pt 0;
+}
+
+/* Inhaltsverzeichnis */
+.toc {
+  background-color: #f8f9fa;
+  border: 1pt solid #e9ecef;
+  border-radius: 6pt;
+  padding: 15pt;
+  margin: 20pt 0;
+}
+
+.toc h2 {
+  margin-top: 0;
+  color: #009688;
+  font-size: 14pt;
+}
+
+.toc ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.toc li {
+  margin: 4pt 0;
+}
+
+.toc a {
+  color: #2c3e50;
+  text-decoration: none;
+}
+
+/* Header/Footer */
+.header, .footer {
+  font-size: 9pt;
+  color: #7f8c8d;
+  text-align: center;
+  padding: 5pt 0;
+}
+
+.footer {
+  border-top: 1pt solid #e9ecef;
+  margin-top: 10pt;
+}
+
+/* Rico-spezifische Stile */
+.rico-doc h1:first-child {
+  margin-top: 0;
+}
+
+/* Emojis und Symbole */
+.rico-doc::before {
+  content: "📄";
+  display: block;
+  text-align: center;
+  font-size: 24pt;
+  margin-bottom: 20pt;
+  opacity: 0.3;
+}
+
+/* Druck-Optimierungen */
+@media print {
+  .rico-doc {
+    font-size: 10pt;
+  }
+  
+  h1 {
+    page-break-before: always;
+  }
+  
+  h1:first-child {
+    page-break-before: avoid;
+  }
+  
+  .cover-page {
+    page-break-after: always;
+  }
+}

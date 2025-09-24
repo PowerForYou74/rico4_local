@@ -1,0 +1,120 @@
+---
+alwaysApply: true
+name: "Rico 4.5 Genius"
+description: "Optimierte Multi-Provider-Architektur mit OpenAI, Claude, Perplexity. Mit Auto-Race, Health-Check 2.0, Security & Tests."
+---
+
+# Rico 4.5 – Systemoptimierung (Genius Edition)
+
+## Ziele
+- Einheitliche Multi-Provider-Architektur (OpenAI, Anthropic, Perplexity).
+- Maximale Sicherheit, keine Key-Leaks, `.env.local` hat Vorrang.
+- Auto-Modus mit sauberem Race & Fallback.
+- Health-Check 2.0 und robustes Fehler-Mapping.
+- Tests vollständig Mock-basiert, kein Real-Call mit Keys.
+- Frontend minimal-invasiv, bestehendes Ergebnis-Schema (deutsche Keys) bleibt.
+
+---
+
+## Regeln
+
+### 1. Sicherheit & Secrets
+- Secrets nur aus `.env.local` lesen, niemals loggen.
+- `.cursorrules` und `.gitignore` respektieren.
+- Bei Fehlern nur Fehlercodes & Mapping loggen (auth | rate_limit | server | timeout).
+
+### 2. Provider & Endpunkte
+- OpenAI:  
+  `POST https://api.openai.com/v1/chat/completions`  
+  Header: `Authorization: Bearer`, `Content-Type: application/json`  
+  Default-Model: `gpt-4o-mini`
+
+- Anthropic (Claude):  
+  `POST https://api.anthropic.com/v1/messages`  
+  Header: `x-api-key`, `anthropic-version: 2023-06-01`, `Content-Type: application/json`  
+  Default-Model: `claude-3-7-sonnet-20250219`
+
+- Perplexity:  
+  `POST https://api.perplexity.ai/chat/completions`  
+  Header: `Authorization: Bearer`, `Content-Type: application/json`  
+  Default-Model: `sonar`
+
+### 3. Auto-Modus & Fallback
+- Starte Race nur mit Providern, deren Keys gesetzt sind.
+- „First success wins“: erste gültige Antwort liefert Ergebnis, restliche Tasks abbrechen.
+- Ergebnis enthält:  
+  `used_provider`, `provider_model`, `duration_s`.
+- Sauberes Cleanup von abgebrochenen Tasks.
+
+### 4. Health-Check 2.0
+- Mini-Pings ohne echte Inhalte.
+- Rückgabe je Provider:  
+  `{status: OK|N/A|Fehler, latency_ms, model, env_source, optional models}`
+- Keine echten Secrets im Response.
+
+### 5. Fehlerbehandlung
+- Einheitliches Mapping:  
+  401 → auth  
+  429 → rate_limit  
+  500 → server  
+  Timeout → timeout
+- Keine internen Tracebacks loggen.
+
+### 6. Tests
+- Unit-Tests mit Mocks: 200, 401, 429, 500, Timeout.
+- Integrationstest: auto-race (Mock).
+- Health-Mocks: simulierte Latenzen & Status.
+- Keine echten Calls oder Keys.
+
+### 7. Frontend
+- Provider-Dropdown inkl. `perplexity` & `auto`.
+- Sidebar-Ampeln (OK/N/A/Fehler) mit `latency_ms`.
+- Task-Monitor zeigt laufende/abgebrochene Tasks.
+- `team_rolle` sichtbar.
+- Schema stabil: alle deutschen Keys bleiben.
+
+### 8. Minimal-Invasivität
+- Bestehendes Ergebnis-Schema unverändert lassen.
+- Neue Felder nur ergänzen.
+
+---
+
+## Ausführungs-Checkliste für Cursor
+1. `.env.local` Vorrang vor `.env` sicherstellen, Keys dort ablegen.  
+2. `.gitignore` und `.cursorrules` prüfen: Keys/Logs ausgeschlossen.  
+3. Provider-Clients implementieren mit exakten Endpunkten & Headern.  
+4. Default-Models setzen:  
+   - OpenAI: `gpt-4o-mini`  
+   - Claude: `claude-3-7-sonnet-20250219`  
+   - Perplexity: `sonar`  
+5. Auto-Modus-Executor: paralleles Race starten, nur Keys mit Value.  
+6. Erfolgs-Logik: first success → Antwort liefern, restliche Tasks abbrechen.  
+7. Ergebnisobjekt: `used_provider`, `provider_model`, `duration_s` integrieren.  
+8. Health-Check-Routen bauen: Mini-Ping, Output-Schema wie spezifiziert.  
+9. Fehler-Mapping implementieren (auth, rate_limit, server, timeout).  
+10. Unit-Tests mit Mocks (200/401/429/500/Timeout).  
+11. Integrationstest Auto-Modus (Mock), prüfen: nur 1 Antwort, restliche Tasks sauber beendet.  
+12. Frontend prüfen: Dropdown zeigt alle Provider inkl. auto, Sidebar-Ampeln korrekt, Schema intakt.  
+
+**Erfolg erkennbar an:**
+- `npm test` / `pytest` läuft durch.  
+- Health-Check liefert Ampeln.  
+- Auto-Modus gibt nur eine Antwort mit `used_provider`.  
+- Keys tauchen nirgends in Logs auf.  
+
+---
+
+## Rollback-Hinweise
+### Betroffene Dateien
+- `services/provider_clients.py` (API-Calls)  
+- `services/auto_executor.py` (Race-Logic)  
+- `services/health_check.py` (Pings)  
+- `frontend/Sidebar.vue` oder `Sidebar.tsx` (Ampeln)  
+- `.env.local` (Keys)
+
+### Rollback
+- `git revert` Commit (betroffene Dateien).  
+- Health-Check mit `curl` zurück auf letzte stabile Version prüfen.  
+- Auto-Modus deaktivieren → manuellen Provider-Call nutzen.  
+
+---

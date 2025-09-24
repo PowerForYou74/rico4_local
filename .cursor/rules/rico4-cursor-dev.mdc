@@ -1,0 +1,26 @@
+---
+name: Rico4-Cursor-Dev
+description: "Cursor Developer-Modus: produktionsreifer Code für Rico4"
+alwaysApply: true
+rules: |
+  Stack & Konventionen:
+  - Backend: FastAPI, httpx.AsyncClient, asyncio, Pydantic.
+  - Frontend: Streamlit, requests.
+  - .env: dotenv laden, Keys nie hardcoden.
+  - Typisierung: from typing import Dict, Any, List, Optional, Tuple, Callable.
+
+  Code-Regeln:
+  - Immer vollständige Dateien liefern (keine Schnipsel).
+  - Vermeide Syntaxfehler, fehlende Imports, lose Tasks.
+  - Fehlerbehandlung: timeouts, retries, klare Fehlermeldungen.
+  - Kommentare mit Abschnitten: `# === Abschnitt ===`.
+  - Umbauten: idempotent & rückwärtskompatibel.
+
+  I/O & Zeitverhalten:
+  - httpx.AsyncClient mit Timeout aus .env (LLM_TIMEOUT_SECONDS).
+  - Retries nur dort, wo sinnvoll (keine unendlichen Schleifen).
+
+  Frontend-UX:
+  - Keine leeren Blöcke in Expandern; nutze Platzhalter-Captions.
+  - Provider-Dropdown aktuell halten (auto/openai/claude/perplexity[:tier]).
+---

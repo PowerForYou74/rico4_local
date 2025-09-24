@@ -1,0 +1,117 @@
+{
+  "success": true,
+  "task_id": "log_watcher",
+  "task_type": "monitoring",
+  "provider": "system",
+  "timestamp": "2025-09-22T11:15:00.018062",
+  "result": {
+    "kurz_zusammenfassung": "Task-Monitoring abgeschlossen: 1 OK, 1 Fehler, 7 Stale",
+    "kernbefunde": [
+      "✅ OK: 1",
+      "❌ Fehler: 1",
+      "⚠️ Stale: 7"
+    ],
+    "action_plan": [
+      "Fehlgeschlagene Tasks überprüfen und neu starten",
+      "Stale Tasks identifizieren und Cron-Schedules prüfen"
+    ],
+    "risiken": [
+      "Fehlgeschlagene Tasks können zu Datenverlust führen",
+      "Stale Tasks deuten auf Scheduler-Probleme hin",
+      "Mehr als die Hälfte der Tasks hat Probleme - System-Überprüfung erforderlich"
+    ],
+    "cashflow_radar": {
+      "idee": "Automatisiertes Task-Monitoring für bessere Systemstabilität"
+    },
+    "team_rolle": {
+      "openai": false,
+      "claude": false,
+      "system": true
+    },
+    "aufgabenverteilung": [
+      "System-Monitoring durch Autopilot",
+      "Fehlerbehebung bei failed Tasks",
+      "Stale-Task Neustart"
+    ],
+    "orchestrator_log": "TaskMonitor | 9 Tasks | ✓ Status gesammelt",
+    "meta": {
+      "provider": "system",
+      "duration_s": 0.1,
+      "monitored_tasks": [
+        "test_task",
+        "daily_checkin",
+        "social_post",
+        "weekly_analysis",
+        "daily_briefing",
+        "evening_check",
+        "social_reels",
+        "finance_focus",
+        "praxis_tip"
+      ],
+      "summary_file": "data/autopilot/results/log_watcher/summary.json"
+    },
+    "raw_text": "",
+    "task_details": {
+      "test_task": {
+        "ok": true,
+        "error": null,
+        "ts": "2025-09-22T11:14:01.786727",
+        "stale": false,
+        "file": "test_task_20250922_111401.json"
+      },
+      "daily_checkin": {
+        "ok": false,
+        "error": "Keine Result-Datei gefunden",
+        "ts": null,
+        "stale": true
+      },
+      "social_post": {
+        "ok": false,
+        "error": null,
+        "ts": "2025-09-22T09:30:04.846727",
+        "stale": true,
+        "file": "social_post_20250922_093004.json"
+      },
+      "weekly_analysis": {
+        "ok": false,
+        "error": "claude: Server error '529 ' for url 'https://api.anthropic.com/v1/messages'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/529",
+        "ts": "2025-09-22T09:00:03.860678",
+        "stale": false,
+        "file": "weekly_analysis_20250922_090003.json"
+      },
+      "daily_briefing": {
+        "ok": false,
+        "error": "Keine Result-Datei gefunden",
+        "ts": null,
+        "stale": true
+      },
+      "evening_check": {
+        "ok": false,
+        "error": "Keine Result-Datei gefunden",
+        "ts": null,
+        "stale": true
+      },
+      "social_reels": {
+        "ok": false,
+        "error": null,
+        "ts": "2025-09-22T10:00:06.199799",
+        "stale": true,
+        "file": "social_reels_20250922_100006.json"
+      },
+      "finance_focus": {
+        "ok": false,
+        "error": "Keine Result-Datei gefunden",
+        "ts": null,
+        "stale": true
+      },
+      "praxis_tip": {
+        "ok": false,
+        "error": null,
+        "ts": "2025-09-22T09:30:04.974256",
+        "stale": true,
+        "file": "praxis_tip_20250922_093004.json"
+      }
+    }
+  },
+  "error": null
+}

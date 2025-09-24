@@ -1,0 +1,22 @@
+---
+name: Rico4-Providers
+description: "Provider-Policy & Perplexity Tiers"
+alwaysApply: true
+rules: |
+  Provider-Strings:
+  - "auto", "openai", "claude", "perplexity", "perplexity:small", "perplexity:medium", "perplexity:large".
+  - Ohne Tier = Default aus .env (PPLX_MODEL, empfohlen: sonar-medium-online).
+
+  Kostensteuerung Perplexity:
+  - #pplx:small → sonar-small-online (günstig/schnell)
+  - #pplx:medium → sonar-medium-online (Mittelweg, Default)
+  - #pplx:large → sonar-large-online (Premium)
+
+  Backend-Pflicht:
+  - Orchestrator muss "perplexity[:tier]" akzeptieren und korrekt mappen.
+  - meta.provider_model IMMER befüllen (sonar-...).
+  - orchestrator_log Eintrag hinzufügen (Provider, Modell, parse-Status).
+
+  AUTO-Modus:
+  - openai/claude/perplexity parallel starten; ersten Erfolg übernehmen; pending Jobs canceln.
+---

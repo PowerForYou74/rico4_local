@@ -1,0 +1,396 @@
+{
+  "name": "Rico V5 – Event Hub",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "rico-events",
+        "responseMode": "lastNode"
+      },
+      "id": "Webhook_Entry",
+      "name": "Webhook: /webhook/rico-events",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        200,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "propertyName": "type",
+        "dataType": "string",
+        "value1": "={{$json[\"body\"][\"type\"]}}",
+        "rules": {
+          "values": [
+            {
+              "operation": "equal",
+              "value2": "daily_summary"
+            },
+            {
+              "operation": "equal",
+              "value2": "cashbot.scan"
+            },
+            {
+              "operation": "equal",
+              "value2": "cashbot.dispatch"
+            }
+          ]
+        }
+      },
+      "id": "Switch_Type",
+      "name": "Switch: event.type",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 2,
+      "position": [
+        480,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "url": "http://localhost:8000/check-keys",
+        "method": "GET",
+        "responseFormat": "json"
+      },
+      "id": "GET_Health",
+      "name": "GET /check-keys",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        760,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "url": "http://localhost:8000/v2/finance/kpis",
+        "method": "GET",
+        "responseFormat": "json"
+      },
+      "id": "GET_KPIs",
+      "name": "GET /v2/finance/kpis",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        960,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "url": "http://localhost:8000/v2/practice/stats",
+        "method": "GET",
+        "responseFormat": "json"
+      },
+      "id": "GET_Practice",
+      "name": "GET /v2/practice/stats",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        1160,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "const health = items[0].json; const kpis = items[1].json; const stats = items[2].json; function okCount(){ try{ const pr=health.providers||{}; return Object.values(pr).filter(x=>String(x.status).toLowerCase().includes('ok')).length;}catch(e){return 0} } const ok = okCount(); const total = Object.keys((health.providers||{})).length; const lines = []; lines.push(`Rico – Daily Summary`); lines.push(`Health: ${ok}/${total} Provider OK`); lines.push(`Finance: Umsatz(M) €${kpis?.revenue?.current_month||0} | Gewinn(M) €${kpis?.profit?.current_month||0} | Runway ${kpis?.cashflow?.runway_months||0} Mo.`); lines.push(`Praxis: Patienten ${stats?.patients||0} | Termine heute ${stats?.appointments_today||0} | Offene Rechnungen ${stats?.unpaid_invoices||0}`); return [{ json: { message: lines.join('\\n') } }];"
+      },
+      "id": "FN_BuildSummary",
+      "name": "Build Summary",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 2,
+      "position": [
+        1380,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{$env.SLACK_WEBHOOK_URL}}",
+        "method": "POST",
+        "responseFormat": "json",
+        "jsonParameters": true,
+        "bodyParametersJson": "={\"text\":$json[\"message\"]}"
+      },
+      "id": "Slack_Summary",
+      "name": "Slack: Summary",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        1600,
+        100
+      ],
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "url": "http://localhost:8000/v2/cashbot/scan",
+        "method": "POST",
+        "responseFormat": "json",
+        "jsonParameters": true,
+        "bodyParametersJson": "={\"query\": $json[\"body\"][\"data\"][\"query\"] || \"AI cashflow\", \"market\": $json[\"body\"][\"data\"][\"market\"] || \"global\", \"online_capable\": $json[\"body\"][\"data\"][\"online_capable\"] ?? true}"
+      },
+      "id": "POST_CashbotScan",
+      "name": "POST /v2/cashbot/scan",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        760,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "const d = items[0].json; return [{ json: { text: `Cashbot Scan OK (scan_id=${d.scan_id}) | provider=${d.provider} | findings=${d.findings_count}` } }];"
+      },
+      "id": "FN_ScanMsg",
+      "name": "Build Scan Msg",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 2,
+      "position": [
+        980,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{$env.SLACK_WEBHOOK_URL}}",
+        "method": "POST",
+        "responseFormat": "json",
+        "jsonParameters": true,
+        "bodyParametersJson": "={\"text\":$json[\"text\"]}"
+      },
+      "id": "Slack_Scan",
+      "name": "Slack: Scan Result",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        1200,
+        300
+      ],
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "url": "http://localhost:8000/v2/cashbot/dispatch",
+        "method": "POST",
+        "responseFormat": "json",
+        "jsonParameters": true,
+        "bodyParametersJson": "={\"finding_id\": $json[\"body\"][\"data\"][\"finding_id\"], \"webhook_name\": $json[\"body\"][\"data\"][\"webhook_name\"] || \"default\"}"
+      },
+      "id": "POST_Dispatch",
+      "name": "POST /v2/cashbot/dispatch",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        760,
+        500
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "const d = items[0].json; return [{ json: { text: `Finding ${d.finding_id} → dispatched (${d.webhook})` } }];"
+      },
+      "id": "FN_DispatchMsg",
+      "name": "Build Dispatch Msg",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 2,
+      "position": [
+        980,
+        500
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{$env.SLACK_WEBHOOK_URL}}",
+        "method": "POST",
+        "responseFormat": "json",
+        "jsonParameters": true,
+        "bodyParametersJson": "={\"text\":$json[\"text\"]}"
+      },
+      "id": "Slack_Dispatch",
+      "name": "Slack: Dispatch",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        1200,
+        500
+      ],
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "responseBody": "={{ { ok: true } }}"
+      },
+      "id": "Respond_ACK",
+      "name": "Respond 200",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        1840,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook: /webhook/rico-events": {
+      "main": [
+        [
+          {
+            "node": "Switch: event.type",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch: event.type": {
+      "main": [
+        [
+          {
+            "node": "GET /check-keys",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "POST /v2/cashbot/scan",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "POST /v2/cashbot/dispatch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GET /check-keys": {
+      "main": [
+        [
+          {
+            "node": "GET /v2/finance/kpis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GET /v2/finance/kpis": {
+      "main": [
+        [
+          {
+            "node": "GET /v2/practice/stats",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GET /v2/practice/stats": {
+      "main": [
+        [
+          {
+            "node": "Build Summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Summary": {
+      "main": [
+        [
+          {
+            "node": "Slack: Summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "POST /v2/cashbot/scan": {
+      "main": [
+        [
+          {
+            "node": "Build Scan Msg",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Scan Msg": {
+      "main": [
+        [
+          {
+            "node": "Slack: Scan Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "POST /v2/cashbot/dispatch": {
+      "main": [
+        [
+          {
+            "node": "Build Dispatch Msg",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Dispatch Msg": {
+      "main": [
+        [
+          {
+            "node": "Slack: Dispatch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Slack: Summary": {
+      "main": [
+        [
+          {
+            "node": "Respond 200",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Slack: Scan Result": {
+      "main": [
+        [
+          {
+            "node": "Respond 200",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Slack: Dispatch": {
+      "main": [
+        [
+          {
+            "node": "Respond 200",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "version": "v5-fixed-abs-urls"
+}

@@ -1,0 +1,20 @@
+{
+  "name": "rico4-pdf-pipeline",
+  "version": "1.0.0",
+  "description": "Rico System V5 - PDF Pipeline für Dokumentation",
+  "main": "scripts/md2pdf.js",
+  "scripts": {
+    "pdf:one": "node scripts/md2pdf.js --file",
+    "pdf:all": "node scripts/md2pdf.js --all",
+    "pdf:watch": "chokidar 'docs/**/*.md' -c 'npm run pdf:all'"
+  },
+  "devDependencies": {
+    "md-to-pdf": "^5.2.3",
+    "globby": "^13.2.2",
+    "fs-extra": "^11.1.1",
+    "chokidar-cli": "^3.0.0"
+  },
+  "keywords": ["pdf", "markdown", "documentation", "rico"],
+  "author": "Rico System V5",
+  "license": "MIT"
+}

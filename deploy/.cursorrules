@@ -1,0 +1,24 @@
+# Rico Deploy Configuration Rules
+
+## Environment Files
+- `.env.local` hat Vorrang vor `.env`
+- Niemals Secrets in Git committen
+- Server erhält eigene `.env.local` Datei
+
+## Docker Services
+- Backend: Port 8000, Healthcheck `/health/quick`
+- Frontend: Port 3000, Next.js Production Build
+- n8n: Port 5678, Optional via N8N_ENABLED
+- Proxy: Ports 80/443, Optional via Profile
+
+## Security
+- Keine API Keys in Logs
+- CORS für Frontend konfiguriert
+- Nginx Security Headers aktiviert
+- Docker User-Berechtigungen korrekt
+
+## Deployment
+- Idempotente Bootstrap-Scripts
+- Health Checks vor Deploy
+- Automatisches Cleanup
+- Rollback bei Fehlern

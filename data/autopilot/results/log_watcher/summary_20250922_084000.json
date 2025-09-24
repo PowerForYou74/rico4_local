@@ -1,0 +1,77 @@
+{
+  "timestamp": "2025-09-22T08:40:00.012951",
+  "counts": {
+    "ok": 1,
+    "failed": 0,
+    "stale": 8
+  },
+  "details": {
+    "test_task": {
+      "ok": true,
+      "error": null,
+      "ts": "2025-09-22T08:38:02.980179",
+      "stale": false,
+      "file": "test_task_20250922_083802.json"
+    },
+    "daily_checkin": {
+      "ok": false,
+      "error": "Keine Result-Datei gefunden",
+      "ts": null,
+      "stale": true
+    },
+    "social_post": {
+      "ok": false,
+      "error": "Keine Result-Datei gefunden",
+      "ts": null,
+      "stale": true
+    },
+    "weekly_analysis": {
+      "ok": false,
+      "error": "Keine Result-Datei gefunden",
+      "ts": null,
+      "stale": true
+    },
+    "daily_briefing": {
+      "ok": false,
+      "error": "Keine Result-Datei gefunden",
+      "ts": null,
+      "stale": true
+    },
+    "evening_check": {
+      "ok": false,
+      "error": "Keine Result-Datei gefunden",
+      "ts": null,
+      "stale": true
+    },
+    "social_reels": {
+      "ok": false,
+      "error": "Keine Result-Datei gefunden",
+      "ts": null,
+      "stale": true
+    },
+    "finance_focus": {
+      "ok": false,
+      "error": "Keine Result-Datei gefunden",
+      "ts": null,
+      "stale": true
+    },
+    "praxis_tip": {
+      "ok": false,
+      "error": "Keine Result-Datei gefunden",
+      "ts": null,
+      "stale": true
+    }
+  },
+  "total_tasks": 9,
+  "monitored_tasks": [
+    "test_task",
+    "daily_checkin",
+    "social_post",
+    "weekly_analysis",
+    "daily_briefing",
+    "evening_check",
+    "social_reels",
+    "finance_focus",
+    "praxis_tip"
+  ]
+}

@@ -1,0 +1,14 @@
+---
+name: Rico4-Security
+description: "Secrets, .env, Logs, Fehlerbilder (on-demand)"
+alwaysApply: true
+rules: |
+  Aktivierung:
+  - Greift NUR, wenn Nutzereingabe eines der Keywords enthält:
+    ["#use:security", "[mode:security]"]
+
+  Verhalten:
+  - .env-Handling prüfen, keine Keys im Code.
+  - Exceptions: sprechende Messages, aber ohne Geheimnisse.
+  - Logging: niemals Secrets, hilfreiche Kontexte (provider, duration, status).
+---

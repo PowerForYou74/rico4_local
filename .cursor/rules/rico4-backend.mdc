@@ -1,0 +1,19 @@
+---
+name: Rico4-Backend
+description: "FastAPI/Orchestrator-Standards"
+globs: ["backend/**"]
+alwaysApply: true
+rules: |
+  Orchestrator:
+  - Einheitliche Rückgabe im Rico-Schema (DE-Schlüssel).
+  - try_parse_json + massage_to_schema nutzen; niemals rohes LLM-JSON blind übernehmen.
+  - used_provider & meta.provider_model setzen.
+  - Timeouts & Retries via .env nutzen.
+
+  Health & Keys:
+  - /check-keys liefert openai/claude/perplexity-Status.
+  - Nie Secrets loggen.
+
+  HTTP:
+  - httpx.AsyncClient mit Timeout; raise_for_status(); klare Fehlermeldungen.
+---

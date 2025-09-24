@@ -1,0 +1,28 @@
+{
+  "success": true,
+  "task_id": "test_task",
+  "task_type": "analysis",
+  "provider": "openai",
+  "timestamp": "2025-09-22T10:08:02.803420",
+  "result": {
+    "kurz_zusammenfassung": "Test-Task erfolgreich ausgeführt.",
+    "kernbefunde": [],
+    "action_plan": [],
+    "risiken": [],
+    "cashflow_radar": {
+      "idee": "Keine spezifische Idee vorhanden."
+    },
+    "team_rolle": {
+      "openai": true,
+      "claude": false
+    },
+    "aufgabenverteilung": [],
+    "orchestrator_log": "OpenAI gpt-4o-mini | 2.8s | ✓ JSON geparst",
+    "meta": {
+      "provider": "openai",
+      "duration_s": 2.802
+    },
+    "raw_text": ""
+  },
+  "error": null
+}

@@ -1,0 +1,36 @@
+{
+  "kurz_zusammenfassung": "Tägliche Analyse der Ereignisse und To-Dos.",
+  "kernbefunde": [
+    "Wichtige Meetings fanden statt.",
+    "Fortschritte bei Projekten wurden erzielt.",
+    "Teamkommunikation war effektiv."
+  ],
+  "action_plan": [
+    "To-Do-Liste für morgen erstellen.",
+    "Prioritäten für anstehende Aufgaben festlegen.",
+    "Feedback aus Meetings umsetzen."
+  ],
+  "risiken": [
+    "Unklare Aufgabenverteilung könnte zu Verzögerungen führen.",
+    "Mangelnde Ressourcen für Projekte.",
+    "Kommunikationsprobleme im Team."
+  ],
+  "cashflow_radar": {
+    "idee": "Überprüfung der Budgetplanung für kommende Projekte."
+  },
+  "team_rolle": {
+    "openai": true,
+    "claude": false
+  },
+  "aufgabenverteilung": [
+    "Projektleiter koordiniert Teammeetings.",
+    "Teammitglieder berichten über Fortschritte.",
+    "Verantwortlichkeiten klar definieren."
+  ],
+  "orchestrator_log": "OpenAI gpt-4o-mini | 4.52s | ✓ JSON geparst",
+  "meta": {
+    "provider": "openai",
+    "duration_s": 4.52
+  },
+  "raw_text": ""
+}

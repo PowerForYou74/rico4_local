@@ -1,0 +1,81 @@
+{
+  "timestamp": "2025-09-22T11:05:00.017661",
+  "counts": {
+    "ok": 1,
+    "failed": 1,
+    "stale": 7
+  },
+  "details": {
+    "test_task": {
+      "ok": true,
+      "error": null,
+      "ts": "2025-09-22T11:04:03.233814",
+      "stale": false,
+      "file": "test_task_20250922_110403.json"
+    },
+    "daily_checkin": {
+      "ok": false,
+      "error": "Keine Result-Datei gefunden",
+      "ts": null,
+      "stale": true
+    },
+    "social_post": {
+      "ok": false,
+      "error": null,
+      "ts": "2025-09-22T09:30:04.846727",
+      "stale": true,
+      "file": "social_post_20250922_093004.json"
+    },
+    "weekly_analysis": {
+      "ok": false,
+      "error": "claude: Server error '529 ' for url 'https://api.anthropic.com/v1/messages'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/529",
+      "ts": "2025-09-22T09:00:03.860678",
+      "stale": false,
+      "file": "weekly_analysis_20250922_090003.json"
+    },
+    "daily_briefing": {
+      "ok": false,
+      "error": "Keine Result-Datei gefunden",
+      "ts": null,
+      "stale": true
+    },
+    "evening_check": {
+      "ok": false,
+      "error": "Keine Result-Datei gefunden",
+      "ts": null,
+      "stale": true
+    },
+    "social_reels": {
+      "ok": false,
+      "error": null,
+      "ts": "2025-09-22T10:00:06.199799",
+      "stale": true,
+      "file": "social_reels_20250922_100006.json"
+    },
+    "finance_focus": {
+      "ok": false,
+      "error": "Keine Result-Datei gefunden",
+      "ts": null,
+      "stale": true
+    },
+    "praxis_tip": {
+      "ok": false,
+      "error": null,
+      "ts": "2025-09-22T09:30:04.974256",
+      "stale": true,
+      "file": "praxis_tip_20250922_093004.json"
+    }
+  },
+  "total_tasks": 9,
+  "monitored_tasks": [
+    "test_task",
+    "daily_checkin",
+    "social_post",
+    "weekly_analysis",
+    "daily_briefing",
+    "evening_check",
+    "social_reels",
+    "finance_focus",
+    "praxis_tip"
+  ]
+}

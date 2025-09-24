@@ -1,0 +1,17 @@
+{
+  "master": "docs/Rico_MasterPrompt_Arbeitsbuch_V5.md",
+  "claude": "docs/Claude_Einstiegsprompt.md",
+  "perplexity": "docs/Perplexity_Einstiegsprompt.md",
+  "cursor": "docs/Cursor_Einstiegsprompt.md",
+  "metadata": {
+    "version": "V5",
+    "last_updated": "2024-09-24",
+    "description": "Rico System V5 - Prompt Registry für automatisches Laden der KI-Prompts",
+    "pdf_output": "docs/pdf/",
+    "theme": {
+      "primary_color": "#009688",
+      "accent_color": "#D4AF37",
+      "font_family": "Helvetica"
+    }
+  }
+}

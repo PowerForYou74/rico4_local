@@ -1,0 +1,37 @@
+{
+  "launch_options": {
+    "args": [
+      "--no-sandbox",
+      "--disable-setuid-sandbox",
+      "--disable-dev-shm-usage",
+      "--disable-gpu"
+    ]
+  },
+  "pdf_options": {
+    "format": "A4",
+    "margin": {
+      "top": "18mm",
+      "right": "14mm",
+      "bottom": "22mm",
+      "left": "14mm"
+    },
+    "printBackground": true,
+    "preferCSSPageSize": true
+  },
+  "stylesheet": "docs/_pdf_theme.css",
+  "body_class": "rico-doc",
+  "marked_options": {
+    "gfm": true,
+    "breaks": false,
+    "pedantic": false,
+    "smartLists": true,
+    "smartypants": true
+  },
+  "md_file_encoding": "utf-8",
+  "dest": "docs/pdf/",
+  "pdf_options": {
+    "displayHeaderFooter": true,
+    "headerTemplate": "<div class='header'><span class='title'></span></div>",
+    "footerTemplate": "<div class='footer'><span class='pageNumber'></span> / <span class='totalPages'></span></div>"
+  }
+}

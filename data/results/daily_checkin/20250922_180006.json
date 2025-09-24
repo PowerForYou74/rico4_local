@@ -1,0 +1,10 @@
+{
+  "ts": "2025-09-22T18:00:06.900636Z",
+  "ok": true,
+  "status": "success",
+  "duration_sec": 6.880637,
+  "provider": "claude",
+  "prompt_type": "analysis",
+  "notes": "Keine spezifischen Ereignisse oder Aktivitäten wurden beschrieben.",
+  "error": null
+}

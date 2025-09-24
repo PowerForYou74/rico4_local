@@ -1,0 +1,14 @@
+---
+name: Rico4-Optimization
+description: "Performance & Code-Qualität (on-demand)"
+alwaysApply: true
+rules: |
+  Aktivierung:
+  - Greift NUR, wenn Nutzereingabe eines der Keywords enthält:
+    ["#use:optimize", "[mode:optimize]"]
+
+  Verhalten:
+  - Entferne Duplikate, extrahiere Hilfsfunktionen.
+  - Bündle I/O, setze sinnvolle Caches (nur deterministisch).
+  - Messbare Verbesserungen: Latenz, Stabilität, Lesbarkeit.
+---

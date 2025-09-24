@@ -1,0 +1,43 @@
+{
+  "success": true,
+  "task_id": "social_post",
+  "task_type": "post",
+  "provider": "openai",
+  "timestamp": "2025-09-22T09:30:04.846727",
+  "result": {
+    "kurz_zusammenfassung": "Social-Media-Beitrag über Tiergesundheit und CellRepair im Praxisalltag.",
+    "kernbefunde": [
+      "Wichtigkeit der Tiergesundheit im Praxisalltag.",
+      "CellRepair als innovative Lösung für Tiergesundheit.",
+      "Positive Erfahrungen aus der Praxis."
+    ],
+    "action_plan": [
+      "Beitrag verfassen und Hashtags integrieren.",
+      "Visuelle Inhalte zur Unterstützung erstellen.",
+      "Beitrag zu den besten Zeiten posten."
+    ],
+    "risiken": [
+      "Negative Rückmeldungen zu CellRepair.",
+      "Unzureichende Reichweite des Beitrags."
+    ],
+    "cashflow_radar": {
+      "idee": "Erhöhung der Sichtbarkeit durch gezielte Social-Media-Kampagnen."
+    },
+    "team_rolle": {
+      "openai": true,
+      "claude": false
+    },
+    "aufgabenverteilung": [
+      "Inhaltserstellung: OpenAI",
+      "Grafikdesign: Teammitglied A",
+      "Post-Planung: Teammitglied B"
+    ],
+    "orchestrator_log": "OpenAI gpt-4o-mini | 4.82s | ✓ JSON geparst",
+    "meta": {
+      "provider": "openai",
+      "duration_s": 4.823
+    },
+    "raw_text": ""
+  },
+  "error": null
+}

@@ -1,0 +1,615 @@
+{
+  "name": "Rico V5 Autopilot",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 * * * *"
+            }
+          ]
+        }
+      },
+      "id": "hourly-trigger",
+      "name": "Hourly Trigger",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 0 * * *"
+            }
+          ]
+        }
+      },
+      "id": "daily-trigger",
+      "name": "Daily Trigger",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [
+        240,
+        500
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 0 * * 0"
+            }
+          ]
+        }
+      },
+      "id": "weekly-trigger",
+      "name": "Weekly Trigger",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [
+        240,
+        700
+      ]
+    },
+    {
+      "parameters": {
+        "url": "http://localhost:8000/v2/autopilot/metrics/rollup",
+        "method": "POST"
+      },
+      "id": "hourly-metrics-rollup",
+      "name": "Hourly Metrics Rollup",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        460,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "url": "http://localhost:8000/v2/autopilot/evaluate",
+        "method": "POST"
+      },
+      "id": "daily-experiments-tick",
+      "name": "Daily Experiments Tick",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        460,
+        500
+      ]
+    },
+    {
+      "parameters": {
+        "url": "http://localhost:8000/v2/autopilot/kb/ingest",
+        "method": "POST",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "docs_path",
+              "value": "docs"
+            },
+            {
+              "name": "results_path",
+              "value": "data/results"
+            }
+          ]
+        }
+      },
+      "id": "weekly-prompt-review",
+      "name": "Weekly Prompt Review",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        460,
+        700
+      ]
+    },
+    {
+      "parameters": {
+        "url": "http://localhost:8000/v2/autopilot/kb/ingest",
+        "method": "POST",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "docs_path",
+              "value": "docs"
+            },
+            {
+              "name": "results_path",
+              "value": "data/results"
+            }
+          ]
+        }
+      },
+      "id": "daily-kb-ingest",
+      "name": "Daily KB Ingest",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        460,
+        900
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "condition-1",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "success",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "check-success",
+      "name": "Check Success",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        680,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "condition-1",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "success",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "check-success-2",
+      "name": "Check Success",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        680,
+        500
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "condition-1",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "success",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "check-success-3",
+      "name": "Check Success",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        680,
+        700
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "condition-1",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "success",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "check-success-4",
+      "name": "Check Success",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        680,
+        900
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{ $env.SLACK_WEBHOOK_URL }}",
+        "method": "POST",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "text",
+              "value": "✅ Rico V5 Autopilot: Hourly metrics rollup completed successfully"
+            }
+          ]
+        }
+      },
+      "id": "slack-success-1",
+      "name": "Slack Success 1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        900,
+        200
+      ],
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "url": "={{ $env.SLACK_WEBHOOK_URL }}",
+        "method": "POST",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "text",
+              "value": "❌ Rico V5 Autopilot: Hourly metrics rollup failed - {{ $json.error || 'Unknown error' }}"
+            }
+          ]
+        }
+      },
+      "id": "slack-error-1",
+      "name": "Slack Error 1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        900,
+        400
+      ],
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "url": "={{ $env.SLACK_WEBHOOK_URL }}",
+        "method": "POST",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "text",
+              "value": "✅ Rico V5 Autopilot: Daily experiments evaluation completed successfully"
+            }
+          ]
+        }
+      },
+      "id": "slack-success-2",
+      "name": "Slack Success 2",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        900,
+        400
+      ],
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "url": "={{ $env.SLACK_WEBHOOK_URL }}",
+        "method": "POST",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "text",
+              "value": "❌ Rico V5 Autopilot: Daily experiments evaluation failed - {{ $json.error || 'Unknown error' }}"
+            }
+          ]
+        }
+      },
+      "id": "slack-error-2",
+      "name": "Slack Error 2",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        900,
+        600
+      ],
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "url": "={{ $env.SLACK_WEBHOOK_URL }}",
+        "method": "POST",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "text",
+              "value": "✅ Rico V5 Autopilot: Weekly prompt review completed successfully"
+            }
+          ]
+        }
+      },
+      "id": "slack-success-3",
+      "name": "Slack Success 3",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        900,
+        600
+      ],
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "url": "={{ $env.SLACK_WEBHOOK_URL }}",
+        "method": "POST",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "text",
+              "value": "❌ Rico V5 Autopilot: Weekly prompt review failed - {{ $json.error || 'Unknown error' }}"
+            }
+          ]
+        }
+      },
+      "id": "slack-error-3",
+      "name": "Slack Error 3",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        900,
+        800
+      ],
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "url": "={{ $env.SLACK_WEBHOOK_URL }}",
+        "method": "POST",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "text",
+              "value": "✅ Rico V5 Autopilot: Daily knowledge base ingest completed successfully"
+            }
+          ]
+        }
+      },
+      "id": "slack-success-4",
+      "name": "Slack Success 4",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        900,
+        800
+      ],
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "url": "={{ $env.SLACK_WEBHOOK_URL }}",
+        "method": "POST",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "text",
+              "value": "❌ Rico V5 Autopilot: Daily knowledge base ingest failed - {{ $json.error || 'Unknown error' }}"
+            }
+          ]
+        }
+      },
+      "id": "slack-error-4",
+      "name": "Slack Error 4",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        900,
+        1000
+      ],
+      "disabled": true
+    }
+  ],
+  "connections": {
+    "hourly-trigger": {
+      "main": [
+        [
+          {
+            "node": "hourly-metrics-rollup",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "daily-trigger": {
+      "main": [
+        [
+          {
+            "node": "daily-experiments-tick",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "weekly-trigger": {
+      "main": [
+        [
+          {
+            "node": "weekly-prompt-review",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "hourly-metrics-rollup": {
+      "main": [
+        [
+          {
+            "node": "check-success",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "daily-experiments-tick": {
+      "main": [
+        [
+          {
+            "node": "check-success-2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "weekly-prompt-review": {
+      "main": [
+        [
+          {
+            "node": "check-success-3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "daily-kb-ingest": {
+      "main": [
+        [
+          {
+            "node": "check-success-4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "check-success": {
+      "main": [
+        [
+          {
+            "node": "slack-success-1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "slack-error-1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "check-success-2": {
+      "main": [
+        [
+          {
+            "node": "slack-success-2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "slack-error-2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "check-success-3": {
+      "main": [
+        [
+          {
+            "node": "slack-success-3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "slack-error-3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "check-success-4": {
+      "main": [
+        [
+          {
+            "node": "slack-success-4",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "slack-error-4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "version": "v5-fixed-abs-urls"
+}

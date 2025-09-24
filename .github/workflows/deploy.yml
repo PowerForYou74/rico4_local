@@ -1,0 +1,91 @@
+name: Deploy Rico System
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+      
+    - name: Setup SSH
+      uses: webfactory/ssh-agent@v0.7.0
+      with:
+        ssh-private-key: ${{ secrets.SSH_KEY }}
+        
+    - name: Deploy to Server
+      run: |
+        # SSH-Verbindung zum Server herstellen
+        ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
+          set -e
+          
+          echo "🚀 Rico System Deploy gestartet..."
+          
+          # In Projektverzeichnis wechseln
+          cd /opt/rico4
+          
+          # Git Pull (falls Repository bereits existiert)
+          if [ -d .git ]; then
+            echo "📥 Repository wird aktualisiert..."
+            git pull origin main
+          else
+            echo "❌ Repository nicht gefunden. Bitte manuell klonen:"
+            echo "git clone <your-repo-url> /opt/rico4"
+            exit 1
+          fi
+          
+          # Deploy Script ausführen
+          echo "🚀 Deploy Script wird ausgeführt..."
+          bash deploy/deploy.sh
+          
+          echo "✅ Deploy abgeschlossen!"
+        EOF
+        
+    - name: Health Check
+      run: |
+        # Warten bis Services gestartet sind
+        sleep 30
+        
+        # Health Check via SSH
+        ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
+          echo "🏥 Health Check wird durchgeführt..."
+          
+          # Backend Health Check
+          if curl -f http://localhost:8000/health/quick > /dev/null 2>&1; then
+            echo "✅ Backend ist gesund"
+          else
+            echo "❌ Backend Health Check fehlgeschlagen"
+            docker compose logs backend
+            exit 1
+          fi
+          
+          # Frontend Health Check
+          if curl -f http://localhost:3000 > /dev/null 2>&1; then
+            echo "✅ Frontend ist erreichbar"
+          else
+            echo "⚠️ Frontend Health Check fehlgeschlagen"
+          fi
+          
+          echo "📊 Service Status:"
+          docker compose ps
+        EOF
+        
+    - name: Notify Success
+      if: success()
+      run: |
+        echo "🎉 Deploy erfolgreich abgeschlossen!"
+        echo "🌐 Services verfügbar:"
+        echo "- Backend: http://${{ secrets.SSH_HOST }}:8000"
+        echo "- Frontend: http://${{ secrets.SSH_HOST }}:3000"
+        echo "- n8n: http://${{ secrets.SSH_HOST }}:5678"
+        
+    - name: Notify Failure
+      if: failure()
+      run: |
+        echo "❌ Deploy fehlgeschlagen!"
+        echo "Bitte Logs prüfen und manuell eingreifen."

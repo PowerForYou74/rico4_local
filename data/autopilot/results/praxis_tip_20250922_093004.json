@@ -1,0 +1,44 @@
+{
+  "success": true,
+  "task_id": "praxis_tip",
+  "task_type": "analysis",
+  "provider": "openai",
+  "timestamp": "2025-09-22T09:30:04.974256",
+  "result": {
+    "kurz_zusammenfassung": "Effektive Therapietechniken für Tiere.",
+    "kernbefunde": [
+      "Hochfrequenz-Induktion fördert die Durchblutung.",
+      "Photobiomodulation unterstützt die Wundheilung.",
+      "Milieutherapie verbessert das allgemeine Wohlbefinden."
+    ],
+    "action_plan": [
+      "Schulung in Hochfrequenz-Induktion anbieten.",
+      "Geräte für Photobiomodulation anschaffen.",
+      "Milieutherapie-Räume gestalten."
+    ],
+    "risiken": [
+      "Falsche Anwendung kann zu Verletzungen führen.",
+      "Unzureichende Schulung des Personals.",
+      "Kosten für Geräte und Einrichtung."
+    ],
+    "cashflow_radar": {
+      "idee": "Zusätzliche Einnahmen durch Therapieangebote."
+    },
+    "team_rolle": {
+      "openai": true,
+      "claude": false
+    },
+    "aufgabenverteilung": [
+      "Therapeuten für Schulungen einplanen.",
+      "Gerätebeschaffung und -wartung organisieren.",
+      "Milieutherapie-Räume regelmäßig evaluieren."
+    ],
+    "orchestrator_log": "OpenAI gpt-4o-mini | 4.96s | ✓ JSON geparst",
+    "meta": {
+      "provider": "openai",
+      "duration_s": 4.959
+    },
+    "raw_text": ""
+  },
+  "error": null
+}

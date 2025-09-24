@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RICO 4.0 Ops Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+</head>
+<body class="bg-gray-50">
+    <div x-data="ricoApp()" x-init="loadData()">
+        <!-- Navigation -->
+        <nav class="bg-white shadow-sm border-b">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between h-16">
+                    <div class="flex">
+                        <div class="flex-shrink-0 flex items-center">
+                            <h1 class="text-xl font-bold text-gray-900">RICO 4.0 Ops Hub</h1>
+                        </div>
+                        <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+                            <a href="#" class="inline-flex items-center px-1 pt-1 border-b-2 border-blue-500 text-sm font-medium text-gray-900">
+                                Home
+                            </a>
+                            <a href="#agents" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
+                                Agents
+                            </a>
+                            <a href="#cashbot" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
+                                Cashbot
+                            </a>
+                            <a href="#finance" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
+                                Finance
+                            </a>
+                            <a href="#practice" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
+                                Practice
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <!-- Header -->
+            <div class="mb-8">
+                <h1 class="text-3xl font-bold text-gray-900">RICO 4.0 Ops Hub</h1>
+                <p class="text-gray-600">Produktionsreife Rico-Zentrale</p>
+            </div>
+
+            <!-- Health Status -->
+            <div class="mb-8" x-show="healthStatus">
+                <h2 class="text-xl font-semibold text-gray-900 mb-4">System Health</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-white p-4 rounded-lg shadow border" x-show="healthStatus">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="font-semibold text-gray-900">OpenAI</h3>
+                                <p class="text-sm text-gray-600" x-text="healthStatus?.models?.openai || 'N/A'"></p>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="h-3 w-3 rounded-full" 
+                                     :class="healthStatus?.openai === 'OK' ? 'bg-green-500' : 'bg-red-500'"></div>
+                                <span class="ml-2 text-sm" x-text="healthStatus?.openai || 'unknown'"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow border" x-show="healthStatus">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="font-semibold text-gray-900">Claude</h3>
+                                <p class="text-sm text-gray-600" x-text="healthStatus?.models?.claude || 'N/A'"></p>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="h-3 w-3 rounded-full" 
+                                     :class="healthStatus?.claude === 'OK' ? 'bg-green-500' : 'bg-red-500'"></div>
+                                <span class="ml-2 text-sm" x-text="healthStatus?.claude || 'unknown'"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow border" x-show="healthStatus">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="font-semibold text-gray-900">Perplexity</h3>
+                                <p class="text-sm text-gray-600" x-text="healthStatus?.models?.perplexity || 'N/A'"></p>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="h-3 w-3 rounded-full" 
+                                     :class="healthStatus?.perplexity === 'OK' ? 'bg-green-500' : 'bg-red-500'"></div>
+                                <span class="ml-2 text-sm" x-text="healthStatus?.perplexity || 'unknown'"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Practice Stats -->
+            <div class="mb-8" x-show="practiceStats">
+                <h2 class="text-xl font-semibold text-gray-900 mb-4">Tierheilpraxis</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-white p-4 rounded-lg shadow border">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="font-semibold text-gray-900">Aktive Patienten</h3>
+                                <p class="text-2xl font-bold text-blue-600" x-text="practiceStats?.patients?.active || 0"></p>
+                                <p class="text-sm text-gray-600" x-text="`von ${practiceStats?.patients?.total || 0} total`"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow border">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="font-semibold text-gray-900">Termine heute</h3>
+                                <p class="text-2xl font-bold text-green-600" x-text="practiceStats?.appointments_today || 0"></p>
+                                <p class="text-sm text-gray-600">geplant</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow border">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="font-semibold text-gray-900">Offene Rechnungen</h3>
+                                <p class="text-2xl font-bold text-red-600" x-text="practiceStats?.unpaid_invoices?.count || 0"></p>
+                                <p class="text-sm text-gray-600" x-text="`${practiceStats?.unpaid_invoices?.amount_eur?.toFixed(2) || 0} €`"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Finance KPIs -->
+            <div class="mb-8" x-show="financeKPIs">
+                <h2 class="text-xl font-semibold text-gray-900 mb-4">Finanz-KPIs</h2>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div class="bg-white p-4 rounded-lg shadow border">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="font-semibold text-gray-900">MRR</h3>
+                                <p class="text-2xl font-bold text-green-600" x-text="`${financeKPIs?.mrr?.toFixed(0) || 0} €`"></p>
+                                <p class="text-sm text-gray-600">Monatlich</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow border">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="font-semibold text-gray-900">ARR</h3>
+                                <p class="text-2xl font-bold text-green-600" x-text="`${financeKPIs?.arr?.toFixed(0) || 0} €`"></p>
+                                <p class="text-sm text-gray-600">Jährlich</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow border">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="font-semibold text-gray-900">Cash on Hand</h3>
+                                <p class="text-2xl font-bold text-blue-600" x-text="`${financeKPIs?.cash_on_hand?.toFixed(0) || 0} €`"></p>
+                                <p class="text-sm text-gray-600">Verfügbar</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow border">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="font-semibold text-gray-900">Runway</h3>
+                                <p class="text-2xl font-bold" 
+                                   :class="financeKPIs?.runway_days > 90 ? 'text-green-600' : financeKPIs?.runway_days > 30 ? 'text-yellow-600' : 'text-red-600'"
+                                   x-text="`${financeKPIs?.runway_days || 0} Tage`"></p>
+                                <p class="text-sm text-gray-600">Verbleibend</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cashbot Findings -->
+            <div class="mb-8" x-show="cashbotFindings.length > 0">
+                <h2 class="text-xl font-semibold text-gray-900 mb-4">Cashbot Findings</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <template x-for="finding in cashbotFindings.slice(0, 6)" :key="finding.id">
+                        <div class="bg-white p-4 rounded-lg shadow border">
+                            <h3 class="font-semibold text-gray-900" x-text="finding.title"></h3>
+                            <p class="text-sm text-gray-600 mt-1" x-text="finding.idea"></p>
+                            <div class="flex justify-between items-center mt-3">
+                                <span class="text-lg font-bold text-green-600" x-text="`${finding.potential_eur.toFixed(0)} €`"></span>
+                                <span class="text-xs bg-gray-100 px-2 py-1 rounded" x-text="finding.timeframe"></span>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="bg-white p-6 rounded-lg shadow">
+                <h2 class="text-xl font-semibold text-gray-900 mb-4">Quick Actions</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <button @click="triggerCashbotScan()" 
+                            class="w-full bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700">
+                        Cashbot Scan
+                    </button>
+                    <button @click="loadData()" 
+                            class="w-full bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+                        Aktualisieren
+                    </button>
+                    <button @click="window.open('http://localhost:8000/api/v1/docs', '_blank')" 
+                            class="w-full bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700">
+                        API Docs
+                    </button>
+                    <button @click="window.open('http://localhost:8501', '_blank')" 
+                            class="w-full bg-orange-600 text-white px-4 py-2 rounded-md hover:bg-orange-700">
+                        Streamlit
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function ricoApp() {
+            return {
+                healthStatus: null,
+                practiceStats: null,
+                financeKPIs: null,
+                cashbotFindings: [],
+                loading: false,
+
+                async loadData() {
+                    this.loading = true;
+                    try {
+                        // Health Status
+                        const healthResponse = await fetch('http://localhost:8000/check-keys');
+                        this.healthStatus = await healthResponse.json();
+
+                        // Practice Stats
+                        const practiceResponse = await fetch('http://localhost:8000/v2/practice/stats');
+                        this.practiceStats = await practiceResponse.json();
+
+                        // Finance KPIs
+                        const financeResponse = await fetch('http://localhost:8000/v2/finance/kpis');
+                        this.financeKPIs = await financeResponse.json();
+
+                        // Cashbot Findings
+                        const cashbotResponse = await fetch('http://localhost:8000/v2/cashbot/findings');
+                        this.cashbotFindings = await cashbotResponse.json();
+                    } catch (error) {
+                        console.error('Error loading data:', error);
+                    } finally {
+                        this.loading = false;
+                    }
+                },
+
+                async triggerCashbotScan() {
+                    try {
+                        const response = await fetch('http://localhost:8000/v2/cashbot/scan', {
+                            method: 'POST'
+                        });
+                        const result = await response.json();
+                        if (result.status === 'success') {
+                            await this.loadData(); // Reload findings
+                            alert(`Cashbot Scan erfolgreich! Finding: ${result.title}`);
+                        } else {
+                            alert('Cashbot Scan fehlgeschlagen');
+                        }
+                    } catch (error) {
+                        console.error('Error triggering scan:', error);
+                        alert('Fehler beim Cashbot Scan');
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+{
+  "ts": "2025-09-22T09:34:01.981042Z",
+  "ok": true,
+  "status": "success",
+  "duration_sec": 1.97979,
+  "provider": "openai",
+  "prompt_type": "analysis",
+  "notes": "Test-Task erfolgreich ausgeführt.",
+  "error": null
+}

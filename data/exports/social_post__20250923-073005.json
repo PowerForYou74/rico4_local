@@ -1,0 +1,37 @@
+{
+  "kurz_zusammenfassung": "Motivationspost zur Tiergesundheit.",
+  "kernbefunde": [
+    "Gesunde Tiere sind glückliche Tiere.",
+    "Regelmäßige Tierarztbesuche sind wichtig.",
+    "Ernährung und Bewegung fördern das Wohlbefinden."
+  ],
+  "action_plan": [
+    "Informiere dich über die Bedürfnisse deines Tieres.",
+    "Plane regelmäßige Tierarztbesuche ein.",
+    "Achte auf eine ausgewogene Ernährung."
+  ],
+  "risiken": [
+    "Vernachlässigung der Tiergesundheit.",
+    "Unzureichende Ernährung.",
+    "Mangelnde Bewegung."
+  ],
+  "cashflow_radar": {
+    "idee": "Erstellung von Inhalten zur Tiergesundheit für Social Media."
+  },
+  "team_rolle": {
+    "openai": true,
+    "claude": false,
+    "perplexity": false
+  },
+  "aufgabenverteilung": [
+    "Erstellung von Posts über Tiergesundheit.",
+    "Interaktion mit der Community.",
+    "Überwachung von Trends in der Tiergesundheit."
+  ],
+  "orchestrator_log": "OpenAI gpt-4o-mini | 5.88s | ✓ JSON geparst",
+  "meta": {
+    "provider": "openai",
+    "duration_s": 5.876
+  },
+  "raw_text": ""
+}

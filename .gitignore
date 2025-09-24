@@ -1,0 +1,4 @@
+.env.local
+n8n_data/
+node_modules/
+__pycache__/

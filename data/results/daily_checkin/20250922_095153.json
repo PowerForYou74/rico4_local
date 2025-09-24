@@ -1,0 +1,10 @@
+{
+  "ts": "2025-09-22T09:51:53.869892Z",
+  "ok": true,
+  "status": "success",
+  "duration_sec": 8.210001,
+  "provider": "claude",
+  "prompt_type": "analysis",
+  "notes": "Anfrage enthält keine spezifischen Informationen über Tagesereignisse oder To-Dos, sondern nur Fragen.",
+  "error": null
+}

@@ -1,0 +1,40 @@
+{
+  "success": true,
+  "task_id": "social_post",
+  "task_type": "post",
+  "provider": "openai",
+  "timestamp": "2025-09-22T11:49:30.798544",
+  "result": {
+    "kurz_zusammenfassung": "Motivierender Post über Tiergesundheit.",
+    "kernbefunde": [
+      "Tiergesundheit ist entscheidend für das Wohlbefinden unserer Haustiere.",
+      "Regelmäßige Tierarztbesuche und gesunde Ernährung sind unerlässlich."
+    ],
+    "action_plan": [
+      "Informiere dich über die Bedürfnisse deines Tieres.",
+      "Plane regelmäßige Gesundheitschecks ein."
+    ],
+    "risiken": [
+      "Vernachlässigung der Gesundheit kann zu ernsthaften Problemen führen.",
+      "Falsche Ernährung kann die Lebensqualität beeinträchtigen."
+    ],
+    "cashflow_radar": {
+      "idee": "Erstelle einen Blog über Tiergesundheit und biete Beratungen an."
+    },
+    "team_rolle": {
+      "openai": true,
+      "claude": false
+    },
+    "aufgabenverteilung": [
+      "Post erstellen und planen.",
+      "Hashtags recherchieren und hinzufügen."
+    ],
+    "orchestrator_log": "OpenAI gpt-4o-mini | 5.59s | ✓ JSON geparst",
+    "meta": {
+      "provider": "openai",
+      "duration_s": 5.592
+    },
+    "raw_text": ""
+  },
+  "error": null
+}

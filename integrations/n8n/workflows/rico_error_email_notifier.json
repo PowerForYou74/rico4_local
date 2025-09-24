@@ -1,0 +1,50 @@
+{
+  "name": "Rico – Error Email Notifier",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "1",
+      "name": "On Error",
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [280, 300]
+    },
+    {
+      "parameters": {
+        "fromEmail": "example@deine-domain.de",
+        "toEmail": "DEINE_EMAIL@domain.de",
+        "subject": "❌ Rico Workflow Error: {{$json[\"workflow\"][\"name\"]}}",
+        "text": "Fehler im Workflow!\n\nWorkflow: {{$json[\"workflow\"][\"name\"]}}\nExecution ID: {{$json[\"execution\"][\"id\"]}}\nNode: {{$json[\"node\"][\"name\"]}}\nError: {{$json[\"error\"][\"message\"]}}"
+      },
+      "id": "2",
+      "name": "Send Email",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2,
+      "position": [580, 300],
+      "credentials": {
+        "smtp": {
+          "id": "1",
+          "name": "Rico SMTP"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "On Error": {
+      "main": [
+        [
+          {
+            "node": "Send Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "timezone": "Europe/Berlin"
+  },
+  "id": "rico-error-email"
+}

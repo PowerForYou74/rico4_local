@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>Label</key><string>com.ow.n8n</string>
+    <key>ProgramArguments</key>
+    <array>
+      <string>/bin/zsh</string>
+      <string>-lc</string>
+      <string>cd "$HOME/Projects/rico4_local/n8n" && docker compose up -d</string>
+    </array>
+    <key>RunAtLoad</key><true/>
+    <key>StandardOutPath</key><string>$HOME/Library/Logs/n8n.out.log</string>
+    <key>StandardErrorPath</key><string>$HOME/Library/Logs/n8n.err.log</string>
+    <key>StartInterval</key><integer>0</integer>
+  </dict>
+</plist>

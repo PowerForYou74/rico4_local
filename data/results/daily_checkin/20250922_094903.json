@@ -1,0 +1,10 @@
+{
+  "ts": "2025-09-22T09:49:03.076290Z",
+  "ok": true,
+  "status": "success",
+  "duration_sec": 5.902086,
+  "provider": "openai",
+  "prompt_type": "analysis",
+  "notes": "Tägliche Analyse der Ereignisse und To-Dos.",
+  "error": null
+}
