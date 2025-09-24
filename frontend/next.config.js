@@ -1,15 +1,5 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  output: 'standalone',
-  typescript: {
-    ignoreBuildErrors: false,
-  },
-  eslint: {
-    ignoreDuringBuilds: false,
-  },
-  env: {
-    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000',
-  },
-}
-
-module.exports = nextConfig
+const nextConfig = { 
+  reactStrictMode: true, 
+  output: 'export' 
+}; 
+module.exports = nextConfig;

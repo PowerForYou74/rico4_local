@@ -21,25 +21,17 @@ services:
     restart: unless-stopped
 
   frontend:
-    build: ./frontend
-    container_name: rico_frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    environment:
+      - NEXT_PUBLIC_API_URL=http://backend:8000
     ports:
       - "3000:3000"
-    environment:
-      - NEXT_PUBLIC_API_BASE=http://localhost:8000
-      - NODE_ENV=production
-    networks:
-      - rico_net
     depends_on:
-      backend:
-        condition: service_healthy
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
-    restart: unless-stopped
+      - backend
+    profiles:
+      - default
 
   n8n:
     image: n8nio/n8n:1.64.0

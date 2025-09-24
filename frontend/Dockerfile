@@ -1,21 +1,24 @@
-FROM node:20-slim
-
+FROM node:20-slim AS deps
 WORKDIR /app
-
-# Copy package files
+ENV CI=true \
+NEXT_TELEMETRY_DISABLED=1
 COPY package*.json ./
+RUN npm ci --ignore-scripts
 
-# Install dependencies
-RUN npm install
-
-# Copy source code
+FROM node:20-slim AS builder
+WORKDIR /app
+ENV CI=true \
+NEXT_TELEMETRY_DISABLED=1 \
+NODE_ENV=production
+COPY package*.json ./
+RUN npm ci --ignore-scripts
 COPY . .
-
-# Build the application
 RUN npm run build
 
-# Expose port
+FROM node:20-slim AS runner
+WORKDIR /app
+ENV NODE_ENV=production \
+NEXT_TELEMETRY_DISABLED=1
+COPY --from=builder /app/out ./out
 EXPOSE 3000
-
-# Start the application
-CMD ["npm", "start"]
+CMD ["npx", "serve", "out", "-s", "-l", "3000"]
