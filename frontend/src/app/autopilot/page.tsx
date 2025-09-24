@@ -9,7 +9,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { 
   Activity, 
   Brain, 
-  Experiment, 
+  FlaskConical, 
   FileText, 
   History, 
   Settings,
@@ -140,15 +140,15 @@ export default function AutopilotPage() {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Experimente</CardTitle>
-            <Experiment className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium">FlaskConicale</CardTitle>
+            <FlaskConical className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
               {status?.experiments?.running_count || 0}
             </div>
             <p className="text-xs text-muted-foreground">
-              Laufende Experimente
+              Laufende FlaskConicale
             </p>
           </CardContent>
         </Card>
@@ -192,8 +192,8 @@ export default function AutopilotPage() {
             Übersicht
           </TabsTrigger>
           <TabsTrigger value="experiments" className="flex items-center gap-2">
-            <Experiment className="h-4 w-4" />
-            Experimente
+            <FlaskConical className="h-4 w-4" />
+            FlaskConicale
           </TabsTrigger>
           <TabsTrigger value="prompts" className="flex items-center gap-2">
             <FileText className="h-4 w-4" />

@@ -386,7 +386,7 @@ export default function AgentsPage() {
                         {Object.entries(aiHealth.routing_rules).map(([rule, provider]) => (
                           <div key={rule} className="border border-border rounded-lg p-3">
                             <div className="font-medium text-sm">{rule}</div>
-                            <div className="text-xs text-muted-foreground">{provider}</div>
+                            <div className="text-xs text-muted-foreground">{String(provider)}</div>
                           </div>
                         ))}
                       </div>

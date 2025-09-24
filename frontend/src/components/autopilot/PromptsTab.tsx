@@ -5,12 +5,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { Progress } from '@/components/ui/progress';
 import { 
   Brain, 
   FileText, 
-  Database, 
   RefreshCw, 
   Upload,
   Search,
@@ -97,22 +95,22 @@ export default function PromptsTab() {
               <div className="space-y-4">
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-gray-500">Version</span>
-                  <span className="font-medium">{prompt.version}</span>
+                  <span className="font-medium">v1.0</span>
                 </div>
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-gray-500">Last Updated</span>
-                  <span className="font-medium">{prompt.updatedAt}</span>
+                  <span className="font-medium">Today</span>
                 </div>
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-gray-500">Usage</span>
-                  <span className="font-medium">{prompt.usageCount}</span>
+                  <span className="font-medium">0</span>
                 </div>
                 <div className="space-y-2">
                   <div className="flex items-center justify-between text-sm">
                     <span className="text-gray-500">Performance</span>
-                    <span className="font-medium">{prompt.performance}%</span>
+                    <span className="font-medium">85%</span>
                   </div>
-                  <Progress value={prompt.performance} className="h-2" />
+                  <Progress value={85} className="h-2" />
                 </div>
                 <div className="flex gap-2 pt-2">
                   <Button variant="outline" size="sm" className="flex-1">

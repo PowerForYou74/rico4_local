@@ -1783,3 +1783,11 @@ INFO:     Finished server process [18608]
 INFO:     Started server process [18633]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'frontend/node_modules/flatted/python/flatted.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [18633]
+INFO:     Started server process [46382]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.

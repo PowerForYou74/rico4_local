@@ -15,7 +15,7 @@ import {
   Clock,
   Database,
   Brain,
-  Experiment,
+  FlaskConical,
   FileText
 } from 'lucide-react';
 import { useAutopilotStore } from '@/store/autopilot-store';
@@ -235,7 +235,7 @@ export default function HealthTab() {
                 <div className="text-2xl font-bold text-purple-600">
                   {status?.experiments?.running_count || 0}
                 </div>
-                <div className="text-sm text-gray-500">Laufende Experimente</div>
+                <div className="text-sm text-gray-500">Laufende FlaskConicale</div>
               </div>
               
               <div className="text-center">
@@ -294,11 +294,11 @@ export default function HealthTab() {
 
             <div className="space-y-2">
               <h4 className="text-sm font-medium flex items-center gap-2">
-                <Experiment className="h-4 w-4" />
-                Experiment-Auswertung
+                <FlaskConical className="h-4 w-4" />
+                FlaskConical-Auswertung
               </h4>
               <p className="text-xs text-gray-500">
-                Tägliche Auswertung der Experimente
+                Tägliche Auswertung der FlaskConicale
               </p>
               <Button 
                 size="sm" 
